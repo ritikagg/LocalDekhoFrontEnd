@@ -1,0 +1,28 @@
+// Media Queries in Sass 3.2
+//
+// These mixins make media queries a breeze with Sass.
+// The media queries from mobile up until desktop all
+// trigger at different points along the way
+//
+// And important point to remember is that and width
+// over the portrait width is considered to be part of the
+// landscape width. This allows us to capture widths of devices
+// that might not fit the dimensions exactly. This means the break
+// points are seamless.
+
+$mq-mobile: 320px !default;
+$mq-desktop: 768px !default;
+
+// Both portrait and landscape
+@mixin mobile {
+	@media (max-width: $mq-desktop) {
+		@content;
+	}
+}
+
+// Everything larger than a landscape tablet but less than or equal to the desktop
+@mixin desktop {
+	@media only screen and (min-width: $mq-desktop) {
+		@content;
+	}
+}
