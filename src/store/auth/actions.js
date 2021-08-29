@@ -10,13 +10,15 @@
 
 // export const logOutRequest = createAction(LOGOUT_REQUEST);
 
-import {
-  LoginOtpGenaration,
-  LoginOtpVerification,
-} from "../../services/authentication/index";
+import { createAction } from "@reduxjs/toolkit";
+// import {
+//   LoginOtpGenaration,
+//   LoginOtpVerification,
+// } from "../../services/authentication/index";
 import { apiHandler, wait } from "../helper";
 
 export const actions = {
+  LOGOUT: "LOGOUT",
   SEND_OTP: "SEND_OTP",
   VERIFY_OTP: "VERIFY_OTP",
 };
@@ -32,15 +34,24 @@ export const sendOtpRequest = (mobile) => {
     // }, //LoginOtpGenaration(mobile)
     handler: async () => {
       await wait(500);
-      return LoginOtpGenaration(mobile);
+      return { hash: "afas", mobile: "9560401880" }; //LoginOtpGenaration(mobile);
     },
     // handler: () => LoginOtpGenaration(mobile),
   });
 };
 
-export const verifyOtpRequest = (mobile, hashedToken, otp) => {
+export const verifyOtpRequest = (mobile, hashedToken, otp, isUser) => {
   return apiHandler({
     action: "auth/" + actions.VERIFY_OTP,
-    handler: () => LoginOtpVerification(mobile, hashedToken, otp),
+    handler: () => ({
+      token: "faskfaskj",
+      isUser,
+      profile: {
+        name: "Ritik Aggarwal",
+        phone: "9560401880",
+      },
+    }), //LoginOtpVerification(mobile, hashedToken, otp),
   });
 };
+
+export const logout = createAction("auth/" + actions.LOGOUT);

@@ -3,8 +3,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyOtpRequest } from "../../store/auth/actions";
 import "./login.css";
+import { Button } from "antd";
 
-const Otp = ({ mobile, onBack }) => {
+const Otp = ({ mobile, onBack, isUser }) => {
   const [otp, setOtp] = useState("");
   const hashedToken = useSelector((state) => state.auth.hashedToken);
   const dispatch = useDispatch();
@@ -12,10 +13,8 @@ const Otp = ({ mobile, onBack }) => {
   const handleChange = (e) => {
     setOtp(e.target.value);
   };
-
   const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(verifyOtpRequest(mobile, hashedToken, otp));
+    dispatch(verifyOtpRequest(mobile, hashedToken, otp, isUser));
     // setIsRequested(true);
   };
 
@@ -23,7 +22,7 @@ const Otp = ({ mobile, onBack }) => {
     <div className="login_body">
       <div className="login__root">
         <div className="title-group__header">OTP</div>
-        <div className="title-grpup_otp_header">Verification Code</div>
+        <div className="title-group_otp_header">Verification Code</div>
         <div className="title-group_otp_info">
           We have sent the code verification to
         </div>
@@ -33,7 +32,7 @@ const Otp = ({ mobile, onBack }) => {
             <EditIcon />
           </div>
         </div>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form">
           <div className="input-group">
             <input
               value={otp}
@@ -44,9 +43,12 @@ const Otp = ({ mobile, onBack }) => {
               required
               // ref={enteredOtp}
             />
-          </div>
-          <div className="button__head">
-            <button className="">Submit</button>
+
+            <div className="button__head">
+              <Button onClick={handleSubmit} type="primary">
+                Submit
+              </Button>
+            </div>
           </div>
         </form>
       </div>

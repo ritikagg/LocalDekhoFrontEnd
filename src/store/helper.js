@@ -14,13 +14,14 @@ export const apiHandler = (prop) => async (dispatch) => {
 
     dispatch({
       type: actionSuccess(prop.action),
-      payload: result.data,
+      payload: result,
     });
   } catch (e) {
     if (prop.errorHandler) {
       message.error("API Error Occured!");
       console.log(e);
     } else {
+        console.log(e);
       // prop.errorHandler(e);
       dispatch({
         type: actionFailed(prop.action),
