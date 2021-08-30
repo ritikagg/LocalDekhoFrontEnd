@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
+import "./fab.css";
 // import AddService from "../form/AddService";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +26,12 @@ const FloatingActionButtons = (props) => {
 
   return (
     <div className={classes.root} onClick={fabClickHandler}>
-      <Fab color="primary" aria-label="add" variant="extended">
+      <Fab
+        color="primary"
+        aria-label="add"
+        variant="extended"
+        className="fab-btn"
+      >
         Add New Service
       </Fab>
     </div>

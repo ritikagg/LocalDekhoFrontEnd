@@ -14,13 +14,14 @@
   transition: color 0.5s ease 0s;
   margin: 8px;
   padding: 16px;
-  min-width: 350px;
-  max-width: 350px;
-  min-height: 350px;
+  /* min-width: 270px; */
+  /* max-width: 270px; */
+  max-height: auto;
+  /* max-width: 200px; */
 }
 
 .service-icon {
-  font-size: 32px;
+  font-size: 28px;
 }
 
 .info__detail {
@@ -31,7 +32,7 @@
 }
 .info__service-name {
   padding-top: 32px;
-  font-size: 28px;
+  font-size: 24px;
 }
 .info__deatil-item {
   padding-left: 16px;
@@ -58,23 +59,23 @@
   /* justify-content: space-evenly; */
 }
 .service-card__service-type {
-  background-color: rgb(88, 164, 235);
+  background-color: rgb(255, 88, 88);
   /* margin: 8px; */
   padding-left: 24px;
   padding-right: 24px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  font-size: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 12px;
   color: white;
   border-radius: 12px;
 }
 
 .service-card__edit {
   background-color: rgb(236, 236, 236);
-  color: rgb(88, 164, 235);
+  color: rgb(235, 88, 88);
   padding-left: 24px;
   padding-right: 24px;
-  margin-top: 64px;
+  margin-top: 54px;
   margin-left: 64px;
   margin-right: 64px;
   text-align: center;
@@ -82,4 +83,5 @@
   padding-bottom: 16px;
   font-size: 16px;
   border-radius: 12px;
+  font-weight: bold;
 }

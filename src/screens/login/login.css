@@ -34,7 +34,7 @@
 .title-group__header {
   margin-bottom: 5%;
   margin-top: 10%;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
 }
@@ -70,14 +70,13 @@
 }
 
 .input-group > input::placeholder {
-  color: #c4c4c4;
+  color: #b4b4b4;
   font-size: 24px;
 }
 
 button {
   display: flex;
   border-radius: 5px;
-  background-color: #3f5ba4;
   border: none;
   color: #fff;
   cursor: pointer;
@@ -109,7 +108,7 @@ button {
   font-size: 24px;
   align-items: center;
   text-align: center;
-  background: black;
+  background: rgb(241, 78, 78);
 }
 
 .title-group_otp_header {
@@ -134,10 +133,6 @@ button {
   display: flex;
   justify-content: center;
   flex-wrap: 1;
-}
-
-.input-group__user_catrgory > input[type="radio"] + *::before {
-  border: 1px solid red;
 }
 
 .input-group__user_catrgory {

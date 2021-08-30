@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // import { Select } from "antd";
 
 // const availale_service = [
@@ -62,9 +62,9 @@ import React, { useState } from "react";
 
 // Props - service_name, service_type, location, mobile, charges
 const AcceptedRequest = () => {
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
-  console.log(visible);
+  // console.log(visible);
 
   //   const onClose = () => {
   //     setVisible(false);

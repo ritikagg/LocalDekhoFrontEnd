@@ -10,7 +10,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-          <a href="" className="brand-title">
+          <a href="/" className="brand-title">
             LocalDekho
           </a>
           <div
@@ -47,16 +47,6 @@ const Navbar = () => {
                   to="/about"
                 >
                   About
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  activeClassName="is-active"
-                  exact={true}
-                  className="nav-link"
-                  to="/helper/auth"
-                >
-                  List Your Service
                 </NavLink>
               </li>
               <li className="nav-item">
