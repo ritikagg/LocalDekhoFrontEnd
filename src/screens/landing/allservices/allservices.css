@@ -7,13 +7,14 @@
 
 .allservice__root-header {
   padding-top: 32px;
-  font-size: 32px;
+  font-size: 28px;
   padding-bottom: 32px;
 }
 
 .allservice__root-cards {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   width: 80%;
   flex-grow: 1;
@@ -33,11 +34,16 @@
   width: 13%;
   text-align: center;
   position: relative;
+  min-width: 120px;
   font-weight: 700;
   /* margin-right: 15px; */
 }
 
 .allservice_card_image {
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
+}
+
+.allserivce_card_head {
+  padding-top: 12px;
 }

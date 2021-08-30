@@ -65,7 +65,11 @@ const SearchBar = () => {
         <div className="category__list">
           <select className="category__list-option">
             {AllServices.map((service, index) => {
-              return <option value={index}>{service.content}</option>;
+              return (
+                <option value={index} key={index}>
+                  {service.content}
+                </option>
+              );
             })}
           </select>
         </div>
@@ -73,16 +77,16 @@ const SearchBar = () => {
           <input
             type="text"
             className="searchTerm"
-            placeholder="What are you looking for?"
+            placeholder="Where are you looking for?"
           />
         </div>
         <div>
-          <button onClick={onLocation} class="search__location">
+          <button onClick={onLocation} className="search__location">
             <i className="bx bx-map"></i>
           </button>
         </div>
         <div>
-          <button type="submit" class="search__btn">
+          <button type="submit" className="search__btn">
             <i className="bx bx-search"></i>
           </button>
         </div>
