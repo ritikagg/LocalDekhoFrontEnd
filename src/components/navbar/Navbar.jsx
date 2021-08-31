@@ -2,9 +2,11 @@ import React from "react";
 import "./navbar.scss";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const [expanded, setExpanded] = useState(false);
+  const { isAuth } = useAuth();
 
   return (
     <>
@@ -50,14 +52,26 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink
-                  activeClassName="is-active"
-                  exact={true}
-                  className="nav-link"
-                  to="/login"
-                >
-                  Login
-                </NavLink>
+                {!isAuth && (
+                  <NavLink
+                    activeClassName="is-active"
+                    exact={true}
+                    className="nav-link"
+                    to="/login"
+                  >
+                    Login
+                  </NavLink>
+                )}
+                {isAuth && (
+                  <NavLink
+                    activeClassName="is-active"
+                    exact={true}
+                    className="nav-link"
+                    to="/dashboard"
+                  >
+                    Profile
+                  </NavLink>
+                )}
               </li>
             </ul>
           </div>
