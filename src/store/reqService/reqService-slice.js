@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import Api from "../../services/addessline/index";
 
 const reqServcieSlice = createSlice({
   name: "reqService",
@@ -19,8 +20,28 @@ const reqServcieSlice = createSlice({
       state.latitude = action.payload.latitude;
       state.longitude = action.payload.longitude;
     },
+    UPDATE_LOCATION(state, action) {
+      console.log(action.payload);
+      // state = action.payload;
+      state.location = action.payload.location;
+    },
   },
 });
+
+export const getAddressLine = (lat, lng) => {
+  return async (dispatch) => {
+    const addesslinehandler = async () => {
+      const res = "New Delhi"; //await Api.getAddress(lat, lng);
+      return res;
+    };
+    const addressline = await addesslinehandler();
+    dispatch(
+      reqServiceActions.UPDATE_LOCATION({
+        location: addressline,
+      })
+    );
+  };
+};
 
 export const reqServiceActions = reqServcieSlice.actions;
 

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { HelperProfile } from "../../../util/helperUtil";
 import StatusCard from "./components/status-card/StatusCard";
 
 const items = [
@@ -25,23 +27,23 @@ const items = [
 ];
 
 function HelperHome() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const helper_id = HelperProfile.getHelperId();
+  }, [dispatch]);
   return (
     <>
-      <h2 className="page-header">Dashboard</h2>
-      <div className="row">
-        <div className="col-12">
-          <div className="row">
-            {items.map((item, index) => (
-              <div className="col-6" key={index}>
-                <StatusCard
-                  icon={item.icon}
-                  count={item.count}
-                  title={item.title}
-                />
-              </div>
-            ))}
+      <div className="home_container">
+        {items.map((item, index) => (
+          <div key={index}>
+            <StatusCard
+              icon={item.icon}
+              count={item.count}
+              title={item.title}
+            />
           </div>
-        </div>
+        ))}
       </div>
     </>
   );

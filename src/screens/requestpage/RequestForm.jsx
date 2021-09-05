@@ -1,33 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "antd/dist/antd.css";
 import moment from "moment";
 import { Form, Input, Button, DatePicker } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { reqServiceActions } from "../../store/reqService/reqService-slice";
 import { Redirect } from "react-router-dom";
-
-import useAuth from "../../hooks/useAuth";
+import "./requestform.css";
 
 const RequestForm = () => {
   const ServiceDetails = useSelector((state) => state.reqService);
-
+  const [redirect, setRedirect] = useState(false);
   const dispatch = useDispatch();
-
-  const { isAuth } = useAuth();
 
   const submitHandler = (values) => {
     dispatch(
       reqServiceActions.UPDATE_DETAILS({
         ...ServiceDetails,
         location: values.location,
-        datetimeSlot: values.datetimeSlot,
+        datetimeSlot: moment(values.datetimeSlot).format(),
         requestedService: ServiceDetails.requestedService,
       })
     );
-    if (isAuth) return <Redirect to="/dashboard" />;
+    setRedirect(true);
   };
-
-  // const ServiceDetails = useSelector((state) => state.reqService);
 
   function range(start, end) {
     const result = [];
@@ -50,15 +45,17 @@ const RequestForm = () => {
     };
   }
 
-  return (
+  const form = (
     <>
       <h2>Request Details</h2>
       <h3>Hello, Help us with more deatils to serve you</h3>
-      <Form name="basic" onFinish={submitHandler}>
+      <Form name="basic" onFinish={submitHandler} layout="vertical">
         <Form.Item label="Service Category">
           <Input value={ServiceDetails.requestedService} disabled />
         </Form.Item>
-
+        <Form.Item label="Mobile">
+          <Input value={ServiceDetails.mobile} />
+        </Form.Item>
         <Form.Item
           label="Location"
           name="location"
@@ -69,7 +66,7 @@ const RequestForm = () => {
             },
           ]}
         >
-          <Input placeholder="input placeholder" />
+          <Input value={ServiceDetails.location} />
         </Form.Item>
 
         <Form.Item
@@ -98,6 +95,8 @@ const RequestForm = () => {
       </Form>
     </>
   );
+
+  return <>{!redirect ? form : <Redirect to="/dashboard/accepted" />}</>;
 };
 
 export default RequestForm;

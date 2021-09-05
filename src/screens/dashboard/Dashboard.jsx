@@ -12,32 +12,31 @@ import { useSelector, useDispatch } from "react-redux";
 import { themeActions } from "../../store/theme/theme-slice";
 
 const Dashboard = () => {
-	const dispatch = useDispatch();
-	const themeReducer = useSelector((state) => state.theme);
-	useEffect(() => {
-		const themeClass = localStorage.getItem(
-			"themeMode",
-			"theme-mode-light"
-		);
-		const colorClass = localStorage.getItem(
-			"colorMode",
-			"theme-mode-light"
-		);
-		dispatch(themeActions.SET_MODE(themeClass));
-		dispatch(themeActions.SET_COLOR(colorClass));
-	}, [dispatch]);
+  const dispatch = useDispatch();
+  const themeReducer = useSelector((state) => state.theme);
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme !== undefined) {
+      localStorage.setItem("theme", theme);
+      if (theme === "dark") {
+        dispatch(themeActions.SET_MODE("theme-mode-dark"));
+      } else {
+        dispatch(themeActions.SET_MODE("theme-mode-light"));
+      }
+    }
+  }, [dispatch]);
 
-	return (
-		<div className={`layout ${themeReducer.mode} ${themeReducer.color}`}>
-			<DashboardSidebar />
-			<div className="layout__content">
-				<TopNav />
-				<div className="layout__content-main">
-					<Routes />
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className={`layout ${themeReducer.mode} theme-color-red`}>
+      <DashboardSidebar />
+      <div className="layout__content">
+        <TopNav />
+        <div className="layout__content-main">
+          <Routes />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

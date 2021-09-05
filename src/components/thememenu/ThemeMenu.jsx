@@ -80,7 +80,7 @@ const ThemeMenu = () => {
 
   const [currMode, setcurrMode] = useState("light");
 
-  const [currColor, setcurrColor] = useState("blue");
+  const [currColor, setcurrColor] = useState("red");
 
   const dispatch = useDispatch();
 

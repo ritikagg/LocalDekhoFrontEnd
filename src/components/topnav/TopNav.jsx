@@ -6,11 +6,15 @@ import { Link } from "react-router-dom";
 
 import Dropdown from "../dropdown/Dropdown";
 
-import ThemeMenu from "../thememenu/ThemeMenu";
+// import ThemeMenu from "../thememenu/ThemeMenu";
 
 import notifications from "../../assets/JsonData/notification.json";
 
+import { useDispatch } from "react-redux";
+
 import user_menu from "../../assets/JsonData/user_menus.json";
+
+import { themeActions } from "../../store/theme/theme-slice";
 
 const curr_user = {
   display_name: "Helper",
@@ -42,6 +46,25 @@ const renderUserMenu = (item, index) => (
 );
 
 const Topnav = () => {
+  // const [currMode, setcurrMode] = useState("light");
+
+  const dispatch = useDispatch();
+
+  const setMode = () => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "light") {
+      localStorage.setItem("theme", "dark");
+      dispatch(themeActions.SET_MODE("theme-mode-dark"));
+    } else {
+      localStorage.setItem("theme", "light");
+      dispatch(themeActions.SET_MODE("theme-mode-light"));
+    }
+  };
+
+  // useEffect(() => {
+  //   const themeClass = localStorage.getItem("theme");
+  //   if (themeClass !== undefined) setcurrMode(themeClass);
+  // }, []);
   return (
     <div className="topnav">
       <div className="topnav__search">
@@ -68,8 +91,11 @@ const Topnav = () => {
           {/* dropdown here */}
         </div>
         <div className="topnav__right-item">
-          <ThemeMenu />
+          <i className="bx bx-brightness" onClick={setMode}></i>
         </div>
+        {/* <div className="topnav__right-item">
+          <ThemeMenu />
+        </div> */}
       </div>
     </div>
   );
