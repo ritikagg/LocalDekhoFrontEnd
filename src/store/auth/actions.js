@@ -15,7 +15,7 @@ import {
   LoginOtpGenaration,
   LoginOtpVerification,
 } from "../../services/authentication/index";
-import { apiHandler, wait } from "../helper";
+import { apiHandler } from "../helper";
 
 export const actions = {
   LOGOUT: "LOGOUT",

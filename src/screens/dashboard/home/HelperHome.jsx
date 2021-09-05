@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { HelperProfile } from "../../../util/helperUtil";
+import React from "react";
+// import { useDispatch } from "react-redux";
+// import { HelperProfile } from "../../../util/helperUtil";
 import StatusCard from "./components/status-card/StatusCard";
 
 const items = [
@@ -27,11 +27,11 @@ const items = [
 ];
 
 function HelperHome() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    const helper_id = HelperProfile.getHelperId();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const helper_id = HelperProfile.getHelperId();
+  // }, [dispatch]);
   return (
     <>
       <div className="home_container">
