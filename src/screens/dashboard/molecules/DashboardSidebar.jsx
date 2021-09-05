@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import useAuth from "../../../hooks/useAuth";
+import { Authenticator } from "../../../util/authUtil";
 
 const userItems = [
   {
@@ -55,9 +55,10 @@ const helperItems = [
 ];
 
 const DashboardSidebar = (props) => {
-  const { isUser } = useAuth();
+  const isUser = Authenticator.getIsUser();
   const { pathname } = useLocation();
 
+  console.log(isUser);
   const active = pathname;
 
   console.log(active);
