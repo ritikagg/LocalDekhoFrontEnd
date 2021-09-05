@@ -1,20 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./home/Home";
 import AcceptedRequest from "./user-accepted/AcceptedRequest";
 import AllServices from "./helper-all-services/AllServices";
 import useAuth from "../../hooks/useAuth";
-import { useDispatch, useSelector } from "react-redux";
-import { HelperProfile } from "../../util/helperUtil";
+import { useSelector } from "react-redux";
+// import { HelperProfile } from "../../util/helperUtil";
 
 const Routes = () => {
   const { isUser } = useAuth();
-  const dispatch = useDispatch();
   const HelperDetails = useSelector((state) => state.helper);
-
-  useEffect(() => {
-    const helper_id = HelperProfile.getHelperId();
-  }, [dispatch]);
 
   return (
     <Switch>
