@@ -9,12 +9,7 @@ import { useSelector } from "react-redux";
 
 const Routes = () => {
   const { isUser } = useAuth();
-  // const dispatch = useDispatch();
   const HelperDetails = useSelector((state) => state.helper);
-
-  // useEffect(() => {
-  //   const helper_id = HelperProfile.getHelperId();
-  // }, [dispatch]);
 
   return (
     <Switch>

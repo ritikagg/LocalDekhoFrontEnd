@@ -1,15 +1,3 @@
-// import { createAction } from "@reduxjs/toolkit";
-
-// export const sendOtpRequest = createAction(SEND_OTP_REQUEST);
-
-// // export const getProfileRequest = createAction(GET_PROFILE_REQUEST);
-
-// // export const resendOtpRequest = createAction(RESEND_OTP_REQUEST);
-
-// export const validateAndLoginRequest = createAction(VALIDATE_AND_LOGIN_REQUEST);
-
-// export const logOutRequest = createAction(LOGOUT_REQUEST);
-
 import { createAction } from "@reduxjs/toolkit";
 import {
   LoginOtpGenaration,

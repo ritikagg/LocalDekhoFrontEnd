@@ -27,11 +27,6 @@ const items = [
 ];
 
 function HelperHome() {
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const helper_id = HelperProfile.getHelperId();
-  // }, [dispatch]);
   return (
     <>
       <div className="home_container">
