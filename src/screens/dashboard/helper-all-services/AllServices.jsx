@@ -1,109 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ServiceCard from "./atoms/ServiceCard";
 import FloatingActionButtons from "../../../components/fab/Fab";
 import AddService from "./AddServiceForm";
-import { Drawer } from "antd";
+import { Modal, notification } from "antd";
+import useGeolocation from "react-hook-geolocation";
+import { useDispatch } from "react-redux";
+import { reqServiceActions } from "../../../store/reqService/reqService-slice";
 
-// const availale_service = [
-//   {
-//     ServiceName: "Electrician",
-//     ServiceType: "Repairing",
-//     Location: "Karol Bagh, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs 500",
-//   },
-//   {
-//     ServiceName: "Food Service",
-//     ServiceType: "Tiffin Delivary",
-//     Location: "Karol Bagh, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs 120",
-//   },
-//   {
-//     ServiceName: "Tuition",
-//     ServiceType: "Home Tuition",
-//     Location: "Connaught place, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs 4500",
-//   },
-//   {
-//     ServiceName: "Mechanic",
-//     ServiceType: "Service and Repairing",
-//     Location: "Greater Kailash, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs --",
-//   },
-//   {
-//     ServiceName: "Cleaning",
-//     ServiceType: "House Cleaning",
-//     Location: "Karol Bagh, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs 500",
-//   },
-//   {
-//     ServiceName: "Housekeeping",
-//     ServiceType: "Maids",
-//     Location: "Karol Bagh, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs 5500",
-//   },
-//   {
-//     ServiceName: "Housekeeping",
-//     ServiceType: "Cooks / Chefs",
-//     Location: "Karol Bagh, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs 4500",
-//   },
-//   {
-//     ServiceName: "Electrician",
-//     ServiceType: "Repairing",
-//     Location: "Karol Bagh, Delhi",
-//     Mobile: "999999999",
-//     AvgCharges: "Rs 500",
-//   },
-// ];
-
-// Props - service_name, service_type, location, mobile, charges
 const AllServices = ({ props }) => {
   const availale_service = props;
 
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-
-  console.log(visible);
 
   const onClose = () => {
     setVisible(false);
   };
 
+  const geolocation = useGeolocation();
+  const lat = geolocation.latitude;
+  const lng = geolocation.longitude;
+  useEffect(() => {
+    if (!geolocation.error) {
+      dispatch(
+        reqServiceActions.UPDATE_LATLNG({
+          latitude: lat,
+          longitude: lng,
+        })
+      );
+    } else {
+      notification.error({
+        message: "Unable to access location",
+        description: "Please provide location access to serve better.",
+      });
+    }
+  }, [dispatch, lat, lng, geolocation.error]);
+
   return (
     <div>
       <h2 className="page-header">All Services</h2>
-      <div className="row">
-        <div className="col-12">
-          <div className="card">
-            <div className="card__body">
-              {availale_service.map((item, index) => (
-                <ServiceCard
-                  service_name={item.service_name}
-                  service_type=""
-                  location={item.address}
-                  mobile="9958937359"
-                  charges={item.avg_charges}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+
+      {/* <div className="col-12">
+          <div className="card"> */}
+      <div className="card__body">
+        {availale_service.map((item, index) => (
+          <ServiceCard
+            key={index}
+            service_name={item.service_name}
+            service_type=""
+            location={item.address}
+            mobile="9958937359"
+            charges={item.avg_charges}
+          />
+        ))}
       </div>
+      {/* </div>
+        </div> */}
+
       <FloatingActionButtons handle={setVisible} />
-      <Drawer
-        width={720}
-        onClose={onClose}
+      <Modal
+        // title="Modal 1000px width"
+        centered
         visible={visible}
-        bodyStyle={{ paddingBottom: 80 }}
+        onOk={() => setVisible(false)}
+        onCancel={() => setVisible(false)}
+        width={700}
       >
         <AddService onClose={onClose} />
-      </Drawer>
+      </Modal>
     </div>
   );
 };

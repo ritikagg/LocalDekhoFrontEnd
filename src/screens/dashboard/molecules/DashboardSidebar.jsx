@@ -58,10 +58,7 @@ const DashboardSidebar = (props) => {
   const isUser = Authenticator.getIsUser();
   const { pathname } = useLocation();
 
-  console.log(isUser);
   const active = pathname;
-
-  console.log(active);
 
   return (
     <Sidebar

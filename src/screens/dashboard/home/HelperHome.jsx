@@ -1,9 +1,7 @@
 import React from "react";
-// import { useDispatch } from "react-redux";
-// import { HelperProfile } from "../../../util/helperUtil";
 import StatusCard from "./components/status-card/StatusCard";
 
-const items = [
+let items = [
   {
     icon: "bx bx-user-pin",
     count: "12",
@@ -16,7 +14,7 @@ const items = [
   },
   {
     icon: "bx bx-time",
-    count: "4",
+    count: "40",
     title: "Scheduled Request",
   },
   {
@@ -26,7 +24,47 @@ const items = [
   },
 ];
 
-function HelperHome() {
+const HelperHome = ({ props }) => {
+  items.map((item) => {
+    if (item.title === "All Services") {
+      item.count = props.allServices.length;
+    }
+    return item;
+  });
+
+  let pendingReq = props.allRequest.filter((item) => {
+    return item.status === "pending";
+  });
+
+  items.map((item) => {
+    if (item.title === "Pending Requests") {
+      item.count = pendingReq.length;
+    }
+    return item;
+  });
+
+  let scheduledReq = props.allRequest.filter((item) => {
+    return item.status === "scheduled";
+  });
+
+  items.map((item) => {
+    if (item.title === "Scheduled Request") {
+      item.count = scheduledReq.length;
+    }
+    return item;
+  });
+
+  let completedReq = props.allRequest.filter((item) => {
+    return item.status === "completed";
+  });
+
+  items.map((item) => {
+    if (item.title === "Total Completed") {
+      item.count = completedReq.length;
+    }
+    return item;
+  });
+
   return (
     <>
       <div className="home_container">
@@ -42,6 +80,6 @@ function HelperHome() {
       </div>
     </>
   );
-}
+};
 
 export default HelperHome;

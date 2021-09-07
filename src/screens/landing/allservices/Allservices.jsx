@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./allservices.css";
 
-import electricican from "../../../assets/flaticon/electrician.svg";
+import electrician from "../../../assets/flaticon/electrician.svg";
 import food_delivery from "../../../assets/flaticon/food_delivery.svg";
 import tuition from "../../../assets/flaticon/tuition.svg";
 import mechanic from "../../../assets/flaticon/mechanic.svg";
@@ -17,13 +17,35 @@ import RequestForm from "../../requestpage/RequestForm";
 import { useDispatch, useSelector } from "react-redux";
 import { reqServiceActions } from "../../../store/reqService/reqService-slice";
 
-import { Drawer, notification } from "antd";
+import { Modal, notification } from "antd";
+
+// import AllService_card from "../../../assets/JsonData/available-services.json";
+
+// import AllService from "../../../assets/JsonData/available-services.json";
+
+// const icon_arr = [
+//   electrician,
+//   food_delivery,
+//   tuition,
+//   mechanic,
+//   carpenter,
+//   maids,
+//   laundry,
+//   cook,
+// ];
+// let AllService_card = [];
+// for (let i = 0; i < AllService.length; i++) {
+//   AllService_card.append(() => {
+//     AllService[i]["icon"] = icon_arr[i];
+//   });
+// }
+
 // import "antd/dist/antd.css";
 
 const AllService_card = [
   {
     ServiceName: "Electrician",
-    icon: electricican,
+    icon: electrician,
   },
   {
     ServiceName: "Tiffin Service",
@@ -109,14 +131,17 @@ const Allservices = () => {
           })}
         </div>
       </div>
-      <Drawer
-        width={720}
-        onClose={onClose}
+
+      <Modal
+        // title="Modal 1000px width"
+        centered
         visible={visible}
-        bodyStyle={{ paddingBottom: 80 }}
+        onOk={() => setVisible(false)}
+        onCancel={() => setVisible(false)}
+        width={700}
       >
         <RequestForm onClose={onClose} />
-      </Drawer>
+      </Modal>
     </>
   );
 };

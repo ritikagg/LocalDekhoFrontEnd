@@ -26,4 +26,8 @@ export class Authenticator {
   static getIsUser() {
     return localStorage.getItem("isUser") === "true";
   }
+
+  static getMobile() {
+    return localStorage.getItem("Mobile");
+  }
 }

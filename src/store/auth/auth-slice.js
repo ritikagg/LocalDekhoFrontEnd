@@ -15,7 +15,7 @@ const authSlice = createSlice({
     hashedToken: "",
     profile: null,
     otpGenerated: undefined,
-    mobile: "",
+    mobile: Authenticator.getMobile(),
   },
   reducers: {
     [actions.LOGOUT]: (state) => {
