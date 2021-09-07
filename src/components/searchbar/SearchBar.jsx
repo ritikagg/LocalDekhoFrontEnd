@@ -6,33 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, notification } from "antd";
 import { reqServiceActions } from "../../store/reqService/reqService-slice";
 import { getAddressLine } from "../../store/reqService/reqService-slice";
-
-const AllServices = [
-  {
-    content: "Electrician",
-  },
-  {
-    content: "Machanic",
-  },
-  {
-    content: "Carpenter",
-  },
-  {
-    content: "Tuition",
-  },
-  {
-    content: "Laundry",
-  },
-  {
-    content: "Tiffin Service",
-  },
-  {
-    content: "Maid",
-  },
-  {
-    content: "Cook",
-  },
-];
+import AllServices from "../../assets/JsonData/available-services.json";
 
 const SearchBar = () => {
   const ServiceDetails = useSelector((state) => state.reqService);
@@ -88,8 +62,8 @@ const SearchBar = () => {
               </option>
               {AllServices.map((service, index) => {
                 return (
-                  <option value={service.content} key={index}>
-                    {service.content}
+                  <option value={service.id} key={index}>
+                    {service.ServiceName}
                   </option>
                 );
               })}

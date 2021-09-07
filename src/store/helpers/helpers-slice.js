@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { notification } from "antd";
+import { addNewHelperService } from "../../services/helperService";
 
 const helperSlice = createSlice({
   name: "helper",
@@ -128,6 +128,17 @@ const helperSlice = createSlice({
     // },
   },
 });
+
+export const addNewHelperServiceAPI = (formData) => {
+  return async () => {
+    const addService = async () => {
+      const res = await addNewHelperService(formData);
+      return res;
+    };
+    const res = await addService();
+    console.log(res);
+  };
+};
 
 export const helperActions = helperSlice.actions;
 

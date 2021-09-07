@@ -8,7 +8,6 @@ const ProtectedRoute = ({ component: Comp, ...restProps }) => {
     <Route
       {...restProps}
       render={(props) => {
-        console.log(props);
         return isAuth ? (
           <Comp {...props} />
         ) : (

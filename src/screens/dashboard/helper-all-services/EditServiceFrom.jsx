@@ -7,18 +7,19 @@ import { getAddressLine } from "../../../store/reqService/reqService-slice";
 import { HelperProfile } from "../../../util/helperUtil";
 import { addNewHelperServiceAPI } from "../../../store/helpers/helpers-slice";
 
-const AddServiceForm = (props) => {
+const EditServiceForm = ({ onClose, props }) => {
   const dispatch = useDispatch();
   const ServiceDetails = useSelector((state) => state.reqService);
   const helper_id = HelperProfile.getHelperId();
   const mobile = useSelector((state) => state.auth.mobile);
 
+  console.log(props);
   const [formData, setFormData] = useState({
     helper_id: helper_id,
     service_id: "",
     contact_number: mobile,
-    address: "",
-    average_charges: "",
+    address: props.address,
+    average_charges: props.charges,
     additional_details: "",
   });
 
@@ -38,17 +39,6 @@ const AddServiceForm = (props) => {
       ...formData,
       address: AddressRef.current.state.value,
     });
-    // if (e) {
-    //   setFormData({
-    //     ...formData,
-    //     address: ServiceDetails.location,
-    //   });
-    // } else {
-    //   setFormData({
-    //     ...formData,
-    //     address: e.target.value,
-    //   });
-    // }
   };
 
   const onLocation = () => {
@@ -130,7 +120,7 @@ const AddServiceForm = (props) => {
           className="addservice__input"
           type="number"
           onChange={chargesChangeHandler}
-          // value={formData.average_charges}
+          //   value={formData.average_charges}
           ref={ChargesRef}
         />
         <Form.Item className="addservice-form__label">
@@ -147,11 +137,11 @@ const AddServiceForm = (props) => {
           className="addservcie__submit-btn"
           onClick={submitHandler}
         >
-          Submit
+          Update
         </Button>
       </Form>
     </>
   );
 };
 
-export default AddServiceForm;
+export default EditServiceForm;

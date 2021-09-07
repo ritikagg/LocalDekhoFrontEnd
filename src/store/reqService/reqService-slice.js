@@ -25,6 +25,12 @@ const reqServcieSlice = createSlice({
       // state = action.payload;
       state.location = action.payload.location;
     },
+    UPDATE_LATLNG(state, action) {
+      // console.log(action.payload);
+      // state = action.payload;
+      state.latitude = action.payload.latitude;
+      state.longitude = action.payload.longitude;
+    },
   },
 });
 

@@ -5,7 +5,9 @@ import AcceptedRequest from "./user-accepted/AcceptedRequest";
 import AllServices from "./helper-all-services/AllServices";
 import useAuth from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
-// import { HelperProfile } from "../../util/helperUtil";
+import PendingRequest from "./helper-pending-req/PendingRequest";
+import ScheduledService from "./helper-scheduled/ScheduledService";
+import CompletedRequest from "./helper-completed/CompletedRequest";
 
 const Routes = () => {
   const { isUser } = useAuth();
@@ -13,7 +15,11 @@ const Routes = () => {
 
   return (
     <Switch>
-      <Route path="/dashboard" exact component={Home} />
+      <Route
+        path="/dashboard"
+        exact
+        render={() => <Home props={isUser ? HelperDetails : HelperDetails} />}
+      />
       {isUser && (
         <Route
           path="/dashboard/accepted"
@@ -32,7 +38,7 @@ const Routes = () => {
             path="/dashboard/rq/pending"
             exact
             render={() => (
-              <AllServices
+              <PendingRequest
                 props={HelperDetails.allRequest.filter((item) => {
                   return item.status === "pending";
                 })}
@@ -43,7 +49,7 @@ const Routes = () => {
             path="/dashboard/services/scheduled"
             exact
             render={() => (
-              <AllServices
+              <ScheduledService
                 props={HelperDetails.allRequest.filter((item) => {
                   return item.status === "scheduled";
                 })}
@@ -54,7 +60,7 @@ const Routes = () => {
             path="/dashboard/completed"
             exact
             render={() => (
-              <AllServices
+              <CompletedRequest
                 props={HelperDetails.allRequest.filter((item) => {
                   return item.status === "completed";
                 })}

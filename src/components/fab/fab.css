@@ -1,3 +1,10 @@
-.fab-btn {
-  background: hsl(0, 73%, 58%);
+.fab-btn,
+.MuiFab-primary {
+  background-color: hsl(0, 73%, 58%);
+  margin: 0;
+  top: auto;
+  right: 20;
+  bottom: 20;
+  left: "auto";
+  position: "fixed";
 }

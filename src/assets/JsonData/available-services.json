@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "ServiceName": "Electrician",
+    "icon": "electricican"
+  },
+  {
+    "id": 2,
+
+    "ServiceName": "Food Delivery",
+    "icon": "food_delivery"
+  },
+  {
+    "id": 3,
+    "ServiceName": "Tuition",
+    "icon": "tuition"
+  },
+  {
+    "id": 4,
+    "ServiceName": "Mechanic",
+    "icon": "mechanic"
+  },
+  {
+    "id": 5,
+    "ServiceName": "Carpenter",
+    "icon": "carpenter"
+  },
+  {
+    "id": 6,
+    "ServiceName": "Maids",
+    "icon": "maids"
+  },
+  {
+    "id": 7,
+    "ServiceName": "Laundry",
+    "icon": "laundry"
+  },
+  {
+    "id": 8,
+    "ServiceName": "Cook",
+    "icon": "cook"
+  }
+]
