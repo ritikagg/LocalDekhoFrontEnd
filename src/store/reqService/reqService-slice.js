@@ -21,7 +21,7 @@ const reqServcieSlice = createSlice({
       state.longitude = action.payload.longitude;
     },
     UPDATE_LOCATION(state, action) {
-      console.log(action.payload);
+      // console.log(action.payload);
       // state = action.payload;
       state.location = action.payload.location;
     },

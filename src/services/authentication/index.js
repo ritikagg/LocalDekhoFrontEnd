@@ -1,9 +1,11 @@
-// import { SendLoginOtpSMS, VerifyLoginOtp } from "../../middleware";
 import axios from "axios";
+
+// const domainURL = `https://dry-dusk-06044.herokuapp.com`;
+const domainURL = `http://localhost:5000`;
 
 export const LoginOtpGenaration = async (mobile) => {
   try {
-    const uri = "http://localhost:5000";
+    const uri = domainURL;
     const response = await axios.get(uri + `/sendOTP`, {
       params: {
         mobile: mobile,
@@ -15,8 +17,6 @@ export const LoginOtpGenaration = async (mobile) => {
   }
 };
 
-const domainURL = `http://localhost:5000`;
-
 export const LoginOtpVerification = async (
   mobile,
   hashedToken,
@@ -24,7 +24,6 @@ export const LoginOtpVerification = async (
   isUser
 ) => {
   try {
-    console.log(isUser);
     let uri = "";
     if (isUser) {
       uri = domainURL + `/api/users`;

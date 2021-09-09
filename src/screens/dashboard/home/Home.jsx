@@ -5,9 +5,8 @@ import UserHome from "./UserHome";
 import useAuth from "../../../hooks/useAuth";
 
 const Home = ({ props }) => {
-  console.log(props);
   const { isUser } = useAuth();
-  return isUser ? <UserHome /> : <HelperHome props={props} />;
+  return isUser ? <UserHome props={props} /> : <HelperHome props={props} />;
 };
 
 export default Home;

@@ -2,7 +2,7 @@ import React from "react";
 
 import "./topnav.css";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Dropdown from "../dropdown/Dropdown";
 
@@ -49,6 +49,7 @@ const Topnav = () => {
   // const [currMode, setcurrMode] = useState("light");
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const setMode = () => {
     const theme = localStorage.getItem("theme");
@@ -61,6 +62,15 @@ const Topnav = () => {
     }
   };
 
+  const handler = (e) => {
+    history.push({
+      pathname:
+        history.location.pathname === "/dashboard"
+          ? "/dashboard/allservices"
+          : history.location.pathname,
+      search: "q=" + e.target.value,
+    });
+  };
   // useEffect(() => {
   //   const themeClass = localStorage.getItem("theme");
   //   if (themeClass !== undefined) setcurrMode(themeClass);
@@ -68,7 +78,7 @@ const Topnav = () => {
   return (
     <div className="topnav">
       <div className="topnav__search">
-        <input type="text" placeholder="Search here..." />
+        <input type="text" placeholder="Search here..." onChange={handler} />
         <i className="bx bx-search"></i>
       </div>
       <div className="topnav__right">

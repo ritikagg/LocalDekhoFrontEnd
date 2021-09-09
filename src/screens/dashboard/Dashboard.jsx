@@ -4,7 +4,6 @@ import "../../assets/css/grid.css";
 import "../../assets/css/theme.css";
 import "../../assets/css/index.css";
 import "./dashboard.css";
-import "antd/dist/antd.css";
 import DashboardSidebar from "./molecules/DashboardSidebar";
 import TopNav from "./molecules/DashboardNav";
 import Routes from "./Routes";

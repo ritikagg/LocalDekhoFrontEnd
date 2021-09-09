@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import useGeolocation from "react-hook-geolocation";
 import "./searchbar.scss";
 import RequestForm from "../../screens/requestpage/RequestForm";
@@ -10,13 +10,21 @@ import AllServices from "../../assets/JsonData/available-services.json";
 
 const SearchBar = () => {
   const ServiceDetails = useSelector((state) => state.reqService);
+  const [location, setLocation] = useState("");
+  const AddressRef = useRef("");
 
-  useEffect(() => {}, []);
+  const addressChangeHandler = (e) => {
+    setLocation(e.target.value);
+  };
   const geolocation = useGeolocation();
 
   const onLocation = () => {
     dispatch(getAddressLine(geolocation.latitude, geolocation.longitude));
   };
+
+  useEffect(() => {
+    setLocation(ServiceDetails.location);
+  }, [ServiceDetails.location]);
 
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
@@ -28,6 +36,11 @@ const SearchBar = () => {
           requestedService: selectedCategory,
           latitude: geolocation.latitude,
           longitude: geolocation.longitude,
+        })
+      );
+      dispatch(
+        reqServiceActions.UPDATE_LOCATION({
+          location: location,
         })
       );
       setVisible(true);
@@ -42,8 +55,6 @@ const SearchBar = () => {
   const onClose = () => {
     setVisible(false);
   };
-
-  // const searchButtonHandler = (latlng) => {};
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -62,7 +73,7 @@ const SearchBar = () => {
               </option>
               {AllServices.map((service, index) => {
                 return (
-                  <option value={service.id} key={index}>
+                  <option value={service.ServiceName} key={index}>
                     {service.ServiceName}
                   </option>
                 );
@@ -74,7 +85,9 @@ const SearchBar = () => {
               type="text"
               className="searchTerm"
               placeholder="Enter your location.."
-              value={ServiceDetails.location}
+              value={location}
+              onChange={addressChangeHandler}
+              ref={AddressRef}
             />
           </div>
           <div className="search_locate_btn">
@@ -96,23 +109,15 @@ const SearchBar = () => {
         </div>
       </div>
       <Modal
-        // title="Modal 1000px width"
         centered
         visible={visible}
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         width={700}
+        footer={null}
       >
         <RequestForm onClose={onClose} />
       </Modal>
-      {/* <Drawer
-        width={720}
-        onClose={onClose}
-        visible={visible}
-        bodyStyle={{ paddingBottom: 80 }}
-      >
-        <RequestForm onClose={onClose} />
-      </Drawer> */}
     </>
   );
 };
