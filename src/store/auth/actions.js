@@ -3,7 +3,7 @@ import {
   LoginOtpGenaration,
   LoginOtpVerification,
 } from "../../services/authentication/index";
-import { apiHandler } from "../helper";
+import { apiHandler, wait } from "../helper";
 
 export const actions = {
   LOGOUT: "LOGOUT",
@@ -14,26 +14,30 @@ export const actions = {
 // prop - { type, handler, errorHandler? }
 
 export const sendOtpRequest = (mobile) => {
+  console.log(mobile);
   return apiHandler({
     action: "auth/" + actions.SEND_OTP,
-    // handler: async () => {
-    //   await wait(500);
-    //   const res = LoginOtpGenaration(mobile);
-    //   return res;
-    // },
-    handler: () => LoginOtpGenaration(mobile),
+    handler: async () => {
+      await wait(1000);
+      const res = LoginOtpGenaration(mobile);
+      return res;
+    },
+    // handler: () => LoginOtpGenaration(mobile),
   });
 };
 
 export const verifyOtpRequest = (mobile, hashedToken, otp, isUser) => {
   return apiHandler({
     action: "auth/" + actions.VERIFY_OTP,
-    handler: () => LoginOtpVerification(mobile, hashedToken, otp, isUser),
-    // handler: () => ({
-    //   token: hashedToken,
-    //   isUser: isUser,
-    //   mobile: mobile,
-    // }), //LoginOtpVerification(mobile, hashedToken, otp),
+    // handler: () => LoginOtpVerification(mobile, hashedToken, otp, isUser),
+    handler: () => ({
+      token: "wfef",
+      isUser: isUser,
+      mobile: mobile,
+      userData: {
+        user_id: 1,
+      },
+    }), //LoginOtpVerification(mobile, hashedToken, otp),
   });
 };
 

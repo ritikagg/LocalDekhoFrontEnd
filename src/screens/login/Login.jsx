@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Otp from "./Otp";
-import { Button } from "antd";
+
 import { useDispatch, useSelector } from "react-redux";
 import { sendOtpRequest } from "../../store/auth/actions";
 import useAuth from "../../hooks/useAuth";
@@ -8,7 +8,10 @@ import { Redirect, useLocation } from "react-router-dom";
 
 import User from "../../assets/flaticon/user.svg";
 import Helper from "../../assets/flaticon/helper.svg";
-import "./login.css";
+import "antd/dist/antd.css";
+
+import "./login.less";
+import { Form, Input, Button } from "antd";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,13 +29,9 @@ const Login = () => {
     }
   }, [auth.hashedToken]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (value) => {
+    setMobile(value.mobile);
     dispatch(sendOtpRequest(mobile));
-  };
-
-  const handleChange = (e) => {
-    setMobile(e.target.value);
   };
 
   const [isUser, setIsUser] = useState(true);
@@ -53,69 +52,84 @@ const Login = () => {
     );
 
   const form = (
-    <div className="login_body">
-      <div className="login__root">
-        <div className="title-group__header">LOGIN AS</div>
-        <div className="input-group__user">
-          <div
-            className={
-              isUser
-                ? "input-group__user_catrgory__active"
-                : "input-group__user_catrgory"
-            }
-            onClick={() => {
-              onChange(true);
-            }}
-          >
-            <div className="input-group__user_radio">
-              <img src={User} style={{ height: "64px" }} alt="User" />
-            </div>
-            <div className="input-group__user_head">USER</div>
-            <div className="input-group__user_desc">I want to avail</div>
-            <div className="input-group__user_desc">service</div>
+    <div className="login__root">
+      <div className="title-group__header">LOGIN AS</div>
+      <div className="input-group__user">
+        <div
+          className={
+            isUser
+              ? "input-group__user_catrgory__active"
+              : "input-group__user_catrgory"
+          }
+          onClick={() => {
+            onChange(true);
+          }}
+        >
+          <div className="input-group__user_radio">
+            <img src={User} style={{ height: "64px" }} alt="User" />
           </div>
-          <div
-            className={
-              isUser
-                ? "input-group__user_catrgory"
-                : "input-group__user_catrgory__active"
-            }
-            onClick={() => {
-              onChange(false);
-            }}
-          >
-            <div className="input-group__user_radio">
-              <img src={Helper} style={{ height: "64px" }} alt="helper" />
-            </div>
-            <div className="input-group__user_head">HELPER</div>
-            <div className="input-group__user_desc">I want to list</div>
-            <div className="input-group__user_desc">service</div>
-          </div>
+          <div className="input-group__user_head">USER</div>
+          <div className="input-group__user_desc">I want to avail</div>
+          <div className="input-group__user_desc">service</div>
         </div>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="mobile">Mobile Number</label>
-            <input
-              value={mobile}
-              type="tel"
-              name="mobile"
-              placeholder="9306871479"
-              size="10"
-              pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$"
-              onChange={handleChange}
-              required
-            />
-            <div className="button__head">
-              <Button
-                onClick={handleSubmit}
-                loading={auth.loading}
-                type="primary"
-              >
-                Request OTP
-              </Button>
-            </div>
+        <div
+          className={
+            isUser
+              ? "input-group__user_catrgory"
+              : "input-group__user_catrgory__active"
+          }
+          onClick={() => {
+            onChange(false);
+          }}
+        >
+          <div className="input-group__user_radio">
+            <img src={Helper} style={{ height: "64px" }} alt="helper" />
           </div>
-        </form>
+          <div className="input-group__user_head">HELPER</div>
+          <div className="input-group__user_desc">I want to list</div>
+          <div className="input-group__user_desc">service</div>
+        </div>
+      </div>
+      <div className="flex">
+        <Form
+          name="basic"
+          onFinish={handleSubmit}
+          handleSubmit
+          layout="vertical"
+        >
+          <Form.Item
+            label="Mobile Number"
+            name="mobile"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Mobile Number!",
+              },
+              {
+                pattern: /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/,
+                message: "Please enter valid mobile number",
+              },
+              {
+                len: 10,
+                message: "Mobile number must be of 10 digits",
+              },
+            ]}
+            className="label"
+          >
+            <Input className="input" placeholder="9306871479" />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="submitbutton"
+              loading={auth.loading}
+            >
+              LOGIN
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

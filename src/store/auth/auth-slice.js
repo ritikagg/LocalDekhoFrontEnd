@@ -5,6 +5,7 @@ import { actionFailed, actionRequest, actionSuccess } from "../helper";
 import { notification } from "antd";
 import { Authenticator } from "../../util/authUtil";
 import { HelperProfile } from "../../util/helperUtil";
+import { UserProfile } from "../../util/userUtil";
 
 const authSlice = createSlice({
   name: "auth",
@@ -12,7 +13,7 @@ const authSlice = createSlice({
     isUser: Authenticator.getIsUser(),
     isAuth: Authenticator.isLoggedIn(),
     loading: false,
-    hashedToken: "",
+    hashedToken: Authenticator.getToken(),
     profile: null,
     otpGenerated: undefined,
     mobile: Authenticator.getMobile(),
@@ -20,6 +21,8 @@ const authSlice = createSlice({
   reducers: {
     [actions.LOGOUT]: (state) => {
       Authenticator.removeToken();
+      HelperProfile.removeHelperId();
+      UserProfile.removeUserId();
       state.isAuth = false;
       state.mobile = "";
       state.hashedToken = "";
@@ -40,14 +43,15 @@ const authSlice = createSlice({
     },
     [actionSuccess(actions.VERIFY_OTP)]: (state, action) => {
       state.isAuth = true;
-      // state.hashedToken = action.payload.token;
-      // state.mobile = action.payload.mobile;
-      // state.isUser = action.payload.isUser;
+      state.hashedToken = action.payload.token;
+      state.mobile = action.payload.mobile;
+      state.isUser = action.payload.isUser;
       // state.profile = action.payload.profile;
       Authenticator.setToken(action.payload.token);
       Authenticator.setMobile(action.payload.mobile);
       Authenticator.setIsUser(action.payload.isUser);
       HelperProfile.setHelperId(action.payload.userData.helper_id);
+      UserProfile.setUserId(action.payload.userData.user_id);
     },
   },
 });

@@ -15,6 +15,11 @@ const userItems = [
     icon: "bx bx-user-pin",
   },
   {
+    display_name: "Scheduled Request",
+    route: "/dashboard/scheduled",
+    icon: "bx bx-time",
+  },
+  {
     display_name: "Previous Services",
     route: "/dashboard/previous",
     icon: "bx bx-user-pin",

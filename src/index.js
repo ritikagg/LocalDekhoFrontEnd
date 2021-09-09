@@ -18,10 +18,8 @@ import App from "./components/App";
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-      {/* <Layout /> */}
-    </React.StrictMode>
+    <App />
+    {/* <Layout /> */}
   </Provider>,
   document.getElementById("root")
 );

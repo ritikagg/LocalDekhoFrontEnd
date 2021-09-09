@@ -40,8 +40,6 @@ import { Modal, notification } from "antd";
 //   });
 // }
 
-// import "antd/dist/antd.css";
-
 const AllService_card = [
   {
     ServiceName: "Electrician",
