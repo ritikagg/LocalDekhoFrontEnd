@@ -13,14 +13,22 @@ const SearchBar = () => {
   const [location, setLocation] = useState("");
   const AddressRef = useRef("");
 
+  let isLoading = ServiceDetails.loading;
+  const [disabled, setDisabled] = useState(false);
+
   const addressChangeHandler = (e) => {
     setLocation(e.target.value);
   };
   const geolocation = useGeolocation();
 
   const onLocation = () => {
+    setDisabled(true);
     dispatch(getAddressLine(geolocation.latitude, geolocation.longitude));
   };
+
+  useEffect(() => {
+    setDisabled(false);
+  }, [isLoading]);
 
   useEffect(() => {
     setLocation(ServiceDetails.location);
@@ -34,12 +42,12 @@ const SearchBar = () => {
         reqServiceActions.UPDATE_DETAILS({
           ...ServiceDetails,
           requestedService: selectedCategory,
-          latitude: geolocation.latitude,
-          longitude: geolocation.longitude,
+          service_id: selectedCategoryID,
         })
       );
       dispatch(
         reqServiceActions.UPDATE_LOCATION({
+          ...ServiceDetails,
           location: location,
         })
       );
@@ -57,9 +65,15 @@ const SearchBar = () => {
   };
 
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategoryID, setSelectedCategoryID] = useState("");
 
   const handleChange = (e) => {
+    const serviceName = e.target.value;
+    const selectedService = AllServices.filter(
+      (i) => i.ServiceName === serviceName
+    );
     setSelectedCategory(e.target.value);
+    setSelectedCategoryID(selectedService[0].id);
   };
 
   return (
@@ -73,7 +87,11 @@ const SearchBar = () => {
               </option>
               {AllServices.map((service, index) => {
                 return (
-                  <option value={service.ServiceName} key={index}>
+                  <option
+                    value={service.ServiceName}
+                    service_id={service.id}
+                    key={index}
+                  >
                     {service.ServiceName}
                   </option>
                 );
@@ -91,10 +109,24 @@ const SearchBar = () => {
             />
           </div>
           <div className="search_locate_btn">
-            <button onClick={onLocation} className="search__location">
-              <i className="bx bx-current-location"></i>
-              {!geolocation.latitude && <div>Loading...</div>}
-              {geolocation.latitude && <div>Locate me</div>}
+            <button
+              onClick={onLocation}
+              className="search__location"
+              disabled={!isLoading}
+            >
+              {!disabled && (
+                <>
+                  <i className="bx bx-current-location"></i>
+                  {!geolocation.latitude && <div>Loading...</div>}
+                  {geolocation.latitude && <div>Locate me</div>}{" "}
+                </>
+              )}
+              {disabled && (
+                <>
+                  <i className="bx bx-current-location"></i>
+                  <div>Locating...</div>
+                </>
+              )}
             </button>
           </div>
           <div onClick={visibilityHandle}>

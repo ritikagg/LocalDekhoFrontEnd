@@ -3,11 +3,13 @@ import ScheduledCard from "./atoms/ScheduledCard";
 
 const ScheduledService = ({ props }) => {
   const scheduled_service = props;
+  const request_timeslot = new Date().toLocaleString();
+
   return (
     <>
       {scheduled_service.length > 0 ? (
         <div>
-          <h2 className="page-header">All Scheduled Service</h2>
+          <div className="page-header">All Scheduled Service</div>
           <div className="pr_card__body">
             {scheduled_service.map((item, index) => (
               <ScheduledCard
@@ -15,14 +17,17 @@ const ScheduledService = ({ props }) => {
                 user_name={item.user_name}
                 service_name={item.service_name}
                 location={item.user_address}
-                mobile={item.user_mobile}
-                request_timeslot={item.request_timeslot}
+                mobile={item.contact_number}
+                request_timeslot={request_timeslot}
               />
             ))}
           </div>
         </div>
       ) : (
-        <h2> No service scheduled. Please accept request!!</h2>
+        <div className="page-header">
+          {" "}
+          No service scheduled. Please Accept Request!
+        </div>
       )}
     </>
   );

@@ -19,27 +19,6 @@ import { reqServiceActions } from "../../../store/reqService/reqService-slice";
 
 import { Modal, notification } from "antd";
 
-// import AllService_card from "../../../assets/JsonData/available-services.json";
-
-// import AllService from "../../../assets/JsonData/available-services.json";
-
-// const icon_arr = [
-//   electrician,
-//   food_delivery,
-//   tuition,
-//   mechanic,
-//   carpenter,
-//   maids,
-//   laundry,
-//   cook,
-// ];
-// let AllService_card = [];
-// for (let i = 0; i < AllService.length; i++) {
-//   AllService_card.append(() => {
-//     AllService[i]["icon"] = icon_arr[i];
-//   });
-// }
-
 const AllService_card = [
   {
     ServiceName: "Electrician",
@@ -137,6 +116,7 @@ const Allservices = () => {
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         width={700}
+        footer={null}
       >
         <RequestForm onClose={onClose} />
       </Modal>

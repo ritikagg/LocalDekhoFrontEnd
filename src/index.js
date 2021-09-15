@@ -1,25 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-// import "./index.css";
-// import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./store/index";
-
-// import rootReducer from "./redux/reducers";
-
-// import Layout from "./components/layout/Layout";
-// import Navbar from "./components/navbar/Navbar";
-import App from "./components/App";
-
-// import * as serviceWorker from "./serviceWorker";
+import App from "./App";
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
-    {/* <Layout /> */}
   </Provider>,
   document.getElementById("root")
 );

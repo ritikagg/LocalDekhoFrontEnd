@@ -1,4 +1,5 @@
-import Routes from "../routes/RootRoutes";
+import Routes from "../src/routes/RootRoutes";
+
 import "./App.less";
 // import { AuthProvider } from "contexts/AuthContext";
 

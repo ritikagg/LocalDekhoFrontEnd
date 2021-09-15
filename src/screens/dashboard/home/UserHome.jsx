@@ -20,7 +20,39 @@ let items = [
   },
 ];
 
-function UserHome({ props }) {
+const UserHome = ({ props }) => {
+  let pendingReq = props.allRequest.filter((item) => {
+    return item.status === "accepted";
+  });
+
+  items.map((item) => {
+    if (item.title === "Accepted Request") {
+      item.count = pendingReq.length;
+    }
+    return item;
+  });
+
+  let scheduledReq = props.allRequest.filter((item) => {
+    return item.status === "scheduled";
+  });
+
+  items.map((item) => {
+    if (item.title === "Scheduled Request") {
+      item.count = scheduledReq.length;
+    }
+    return item;
+  });
+
+  let completedReq = props.allRequest.filter((item) => {
+    return item.status === "completed";
+  });
+
+  items.map((item) => {
+    if (item.title === "Previous Services") {
+      item.count = completedReq.length;
+    }
+    return item;
+  });
   return (
     <>
       <div className="home_container">
@@ -36,6 +68,6 @@ function UserHome({ props }) {
       </div>
     </>
   );
-}
+};
 
 export default UserHome;

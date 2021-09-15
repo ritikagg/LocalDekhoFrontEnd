@@ -52,11 +52,6 @@ const helperItems = [
     route: "/dashboard/completed",
     icon: "bx bx-task",
   },
-  {
-    display_name: "settings",
-    route: "/dashboard/settings",
-    icon: "bx bx-cog",
-  },
 ];
 
 const DashboardSidebar = (props) => {

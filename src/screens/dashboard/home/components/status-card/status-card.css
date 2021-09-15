@@ -74,3 +74,7 @@
 .status-card:hover h4 {
   color: var(--txt-white);
 }
+
+.status-card__count {
+  font-size: 24px;
+}

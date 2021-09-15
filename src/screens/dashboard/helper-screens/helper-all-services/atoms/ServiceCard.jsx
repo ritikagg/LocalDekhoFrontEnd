@@ -55,6 +55,7 @@ const ServiceCard = (props) => {
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         width={700}
+        footer={null}
       >
         <EditServiceForm props={props} onClose={onClose} />
       </Modal>

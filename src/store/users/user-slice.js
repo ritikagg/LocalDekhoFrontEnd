@@ -1,93 +1,82 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import {
-//   addNewHelperService,
-//   getHelpersDetails,
-// } from "../../services/helperService";
-// import { wait } from "../helper";
+import {
+  getUserDetails,
+  updateServiceStatus,
+  requestNewService,
+} from "../../services/userService";
+import { wait } from "../helper";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    loading: false,
-    allRequest: [
-      {
-        status: "accepted",
-        id: 1,
-        helper_id: 1,
-        helper_name: "John",
-        helper_mobile: "9958936359",
-        service_id: 2,
-        service_name: "Food Delivery",
-        user_id: 1,
-        avg_charges: 500,
-      },
-      {
-        status: "scheduled",
-        id: 1,
-        helper_id: 1,
-        helper_name: "John",
-        helper_mobile: "9958936359",
-        service_id: 2,
-        service_name: "Food Delivery",
-        user_id: 1,
-        avg_charges: 500,
-      },
-      {
-        status: "completed",
-        id: 1,
-        helper_id: 1,
-        helper_name: "John",
-        helper_mobile: "9958936359",
-        service_id: 2,
-        service_name: "Food Delivery",
-        user_id: 1,
-        avg_charges: 500,
-      },
-    ],
+    loading: true,
+    allRequest: [],
+    updateStatusLoading: true,
   },
 
   reducers: {
-    // UPDATE_USER_DETAILS(state, action) {
-    //   // console.log(action.payload);
-    //   // state = action.payload;
-    //   state.allServices = action.payload.allServices;
-    //   state.allRequest = action.payload.allRequest;
-    //   state.loading = false;
-    // },
+    UPDATE_USER_DETAILS(state, action) {
+      state.allRequest = action.payload.allRequest;
+      state.loading = false;
+    },
+    UPDATE_SERVICE_STATUS(state, action) {
+      state.updateStatusLoading = false;
+    },
   },
 });
 
-// export const getHelpersDetailsAPI = (helper_id) => {
-//   console.log(helper_id);
-//   return async (dispatch) => {
-//     const getDetails = async () => {
-//       await wait(2000);
-//       const res = await getHelpersDetails(helper_id);
-//       return res;
-//     };
-//     const res = await getDetails();
-//     console.log(res);
-//     if (res.success) {
-//       dispatch(
-//         helperActions.UPDATE_HELPER_DETAILS({
-//           allServices: res.allservices,
-//           allRequest: res.allrequests,
-//         })
-//       );
-//     }
-//   };
-// };
+export const getUsersDetailsAPI = (user_id) => {
+  return async (dispatch) => {
+    const getDetails = async () => {
+      await wait(1000);
+      const res = await getUserDetails(user_id);
+      return res;
+    };
+    const res = await getDetails();
+    if (res.success) {
+      dispatch(
+        userActions.UPDATE_USER_DETAILS({
+          allRequest: res.allrequests,
+        })
+      );
+    }
+  };
+};
 
-// export const addNewHelperServiceAPI = (formData) => {
-//   return async () => {
-//     const addService = async () => {
-//       const res = await addNewHelperService(formData);
-//       return res;
-//     };
-//     const res = await addService();
-//     console.log(res);
-//   };
-// };
+export const updateRequestStatusAPI = (id, action) => {
+  return async (dispatch) => {
+    const updateStatus = async () => {
+      const res = await updateServiceStatus(id, action);
+      return res;
+    };
+    const res = await updateStatus();
+    if (res.data.success) {
+      dispatch(userActions.UPDATE_SERVICE_STATUS);
+    }
+  };
+};
+
+export const requestNewServiceAPI = (
+  user_id,
+  service_id,
+  user_name,
+  location,
+  postal_code
+) => {
+  return async () => {
+    const requestService = async () => {
+      const res = await requestNewService(
+        user_id,
+        service_id,
+        user_name,
+        location,
+        postal_code
+      );
+      return res;
+    };
+    const res = await requestService();
+  };
+};
 
 export const userActions = userSlice.actions;
 

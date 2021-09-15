@@ -1,6 +1,7 @@
 import axios from "axios";
 
 // const domainURL = `https://dry-dusk-06044.herokuapp.com`;
+// const domainURL = `https://localdekhobackend.herokuapp.com`;
 const domainURL = `http://localhost:5000`;
 
 export const LoginOtpGenaration = async (mobile) => {
@@ -36,7 +37,6 @@ export const LoginOtpVerification = async (
       otp: otp,
       isUser: isUser,
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error;

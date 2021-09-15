@@ -13,9 +13,7 @@ const Sidebar = (props) => {
 
   return (
     <div className="sidebar">
-      <div className="sidebar__logo">
-        <h1>Local Dekho</h1>
-      </div>
+      <div className="sidebar__logo">Local Dekho</div>
       {props.items.map((item, index) => (
         <Link to={item.route} key={index}>
           <SidebarItem

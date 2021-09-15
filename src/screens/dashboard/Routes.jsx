@@ -1,18 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./home/Home";
 import useAuth from "../../hooks/useAuth";
 import { useSelector, useDispatch } from "react-redux";
+
 import AcceptedRequest from "./user-screens/user-accepted/AcceptedRequest";
+import ScheduledRequest from "./user-screens/user-scheduled/ScheduledRequest";
+
 import AllServices from "./helper-screens/helper-all-services/AllServices";
 import PendingRequest from "./helper-screens/helper-pending-req/PendingRequest";
 import ScheduledService from "./helper-screens/helper-scheduled/ScheduledService";
 import CompletedRequest from "./helper-screens/helper-completed/CompletedRequest";
+
 import { getHelpersDetailsAPI } from "../../store/helpers/helpers-slice";
 import { HelperProfile } from "../../util/helperUtil";
 import { UserProfile } from "../../util/userUtil";
 import loader2 from "../../assets/lottie/loader2.json";
 import Lottie from "react-lottie";
+
+import CompletedService from "./user-screens/user-previous/CompletedService";
+import {
+  getUsersDetailsAPI,
+  requestNewServiceAPI,
+} from "../../store/users/user-slice";
 
 const Routes = () => {
   const defaultOptions = {
@@ -28,6 +38,26 @@ const Routes = () => {
   const dispatch = useDispatch();
   const helper_id = HelperProfile.getHelperId();
   const user_id = UserProfile.getUserId();
+  // const user_id = UserProfile.getUserId();
+  const [interval, setInterval] = useState(false);
+  const reqService = useSelector((state) => state.reqService);
+
+  const [IsConfirm, setIsConfirm] = useState(false);
+
+  useEffect(() => {
+    if (reqService.requestedService !== undefined) {
+      dispatch(
+        requestNewServiceAPI(
+          user_id,
+          reqService.service_id,
+          reqService.name,
+          reqService.location,
+          reqService.postal_code
+        )
+      );
+      setIsConfirm(true);
+    }
+  }, [dispatch, IsConfirm, reqService, user_id]);
 
   useEffect(() => {
     if (!isUser) {
@@ -37,9 +67,38 @@ const Routes = () => {
 
   useEffect(() => {
     if (isUser) {
-      //dispatch(getUserDetailsAPI(user_id));
+      dispatch(getUsersDetailsAPI(user_id));
     }
-  }, [dispatch, helper_id, isUser]);
+  }, [dispatch, user_id, isUser]);
+
+  //Long poling after every 3 sec
+
+  useEffect(() => {
+    if (!isUser) {
+      const timeout = setTimeout(() => {
+        // console.log("timeout out after 3 sec");
+        setInterval(true);
+        dispatch(getHelpersDetailsAPI(helper_id));
+      }, 3000);
+      return () => {
+        clearTimeout(timeout);
+        setInterval(false);
+      };
+    }
+
+    if (isUser) {
+      const timeout = setTimeout(() => {
+        // console.log("timeout out after 3 sec");
+        setInterval(true);
+        dispatch(getUsersDetailsAPI(user_id));
+      }, 3000);
+      return () => {
+        clearTimeout(timeout);
+        setInterval(false);
+      };
+    }
+    // }, [dispatch, helper_id, isUser, user_id]);
+  }, [dispatch, helper_id, isUser, interval, user_id]);
 
   let isLoading = true;
   let AllDetails = [];
@@ -54,7 +113,6 @@ const Routes = () => {
   }
 
   isLoading = AllDetails.loading;
-  console.log(AllDetails);
 
   return (
     <>
@@ -73,9 +131,10 @@ const Routes = () => {
                 exact
                 render={() => (
                   <AcceptedRequest
-                    props={AllDetails.allRequest.filter((item) => {
-                      return item.status === "accepted";
+                    acceptedSer={AllDetails.allRequest.filter((item) => {
+                      return item.status === "helper_accepted";
                     })}
+                    IsConfirm={IsConfirm}
                   />
                 )}
               />
@@ -83,7 +142,7 @@ const Routes = () => {
                 path="/dashboard/scheduled"
                 exact
                 render={() => (
-                  <AcceptedRequest
+                  <ScheduledRequest
                     props={AllDetails.allRequest.filter((item) => {
                       return item.status === "scheduled";
                     })}
@@ -94,7 +153,7 @@ const Routes = () => {
                 path="/dashboard/previous"
                 exact
                 render={() => (
-                  <AcceptedRequest
+                  <CompletedService
                     props={AllDetails.allRequest.filter((item) => {
                       return item.status === "completed";
                     })}
@@ -116,7 +175,10 @@ const Routes = () => {
                 render={() => (
                   <PendingRequest
                     props={AllDetails.allRequest.filter((item) => {
-                      return item.status === "pending";
+                      return (
+                        item.status === "helper_accepted" ||
+                        item.status === "pending"
+                      );
                     })}
                   />
                 )}

@@ -1,142 +1,155 @@
-import React, { useState, useRef } from "react";
-import { Form, Input, Button } from "antd";
-import AllServices from "../../../../../assets/JsonData/available-services.json";
+import React from "react";
+import { Form, Input, Button, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { getAddressLine } from "../../../../../store/reqService/reqService-slice";
 import { HelperProfile } from "../../../../../util/helperUtil";
-import { addNewHelperServiceAPI } from "../../../../../store/helpers/helpers-slice";
+import { editHelperServiceAPI } from "../../../../../store/helpers/helpers-slice";
+import AllAvailableServices from "../../../../../assets/JsonData/available-services.json";
 
 const EditServiceForm = ({ onClose, props }) => {
   const dispatch = useDispatch();
-  const ServiceDetails = useSelector((state) => state.reqService);
   const helper_id = HelperProfile.getHelperId();
   const mobile = useSelector((state) => state.auth.mobile);
 
-  const [formData, setFormData] = useState({
-    helper_id: helper_id,
-    service_id: "",
-    contact_number: mobile,
-    address: props.address,
-    average_charges: props.charges,
-    additional_details: "",
-  });
+  const submitHandler = (values) => {
+    const data = {
+      formData: {
+        address: values.location,
+        average_charges: values.charges,
+        additional_details: "",
+      },
+    };
 
-  const ServiceRef = useRef();
-  const AddressRef = useRef();
-  const ChargesRef = useRef();
-  const AddDeatilsRef = useRef();
-  const ServiceChangeHandler = () => {
-    setFormData({
-      ...formData,
-      service_id: ServiceRef.current.value,
-    });
-  };
+    const serviceIdObj = AllAvailableServices.filter(
+      (e) => e.ServiceName === values.category
+    );
 
-  const addressChangeHandler = () => {
-    setFormData({
-      ...formData,
-      address: AddressRef.current.state.value,
-    });
-  };
+    const service_id = serviceIdObj[0].id;
 
-  const onLocation = () => {
-    dispatch(getAddressLine(ServiceDetails.latitude, ServiceDetails.longitude));
-  };
+    dispatch(editHelperServiceAPI(data, helper_id, service_id));
 
-  const chargesChangeHandler = () => {
-    setFormData({
-      ...formData,
-      average_charges: ChargesRef.current.state.value,
-    });
-  };
+    onClose();
+    const key = "updatable";
 
-  const addDeatilsChangeHandler = () => {
-    setFormData({
-      ...formData,
-      additional_details: AddDeatilsRef.current.state.value,
-    });
-  };
-
-  const submitHandler = () => {
-    dispatch(addNewHelperServiceAPI(formData));
-    props.onClose();
+    message.loading({ content: "Hold tight...", key });
+    setTimeout(() => {
+      message.success({ content: "Service Updated!!", key, duration: 3 });
+    }, 3000);
   };
 
   return (
     <>
-      <Form className="addservice__form_container">
+      <Form
+        className="addservice__form_container"
+        layout="vertical"
+        initialValues={{
+          mobile: props.mobile,
+          location: props.location,
+          charges: Number(props.charges),
+          category: props.service_name,
+        }}
+        onFinish={submitHandler}
+      >
         <div className="addservice-container">
           <div className="addservice-container__items">
-            <Form.Item className="addservice-form__label">
-              Service Catogory
-            </Form.Item>
-            <select
-              className="addservice-category__list_option"
-              onChange={ServiceChangeHandler}
+            <Form.Item
+              label="Service Catogory"
+              name="category"
+              className="addservice-form__label"
             >
-              <option value="default">
-                {" "}
-                {/*key="0">*/}
-                Category
-              </option>
-              {AllServices.map((service, index) => {
-                return (
-                  <option value={service.id} key={index} ref={ServiceRef}>
-                    {service.ServiceName}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div>
-            <Form.Item className="addservice-form__label">
-              Mobile Number
+              <Input className="input" disabled />
             </Form.Item>
-            <Input
-              className="addservice_header__input"
-              value={mobile}
-              disabled
-            />
+          </div>
+
+          <div>
+            <Form.Item
+              label="Mobile Number"
+              name="mobile"
+              className="addservice-form__label"
+            >
+              <Input
+                className="addservice_header__input"
+                value={mobile}
+                disabled
+              />
+            </Form.Item>
           </div>
         </div>
 
-        <Form.Item className="addservice-form__label">Working Area</Form.Item>
-        <div className="addservice__location">
-          <Input
-            className="addservice__input__location"
-            value={formData.address}
-            onChange={addressChangeHandler}
-            ref={AddressRef}
-          ></Input>
-          <button className="addservice__search__location" onClick={onLocation}>
-            <i className="bx bx-map "></i>
-          </button>
-        </div>
-
-        <Form.Item className="addservice-form__label">Charges</Form.Item>
-        <Input
-          className="addservice__input"
-          type="number"
-          onChange={chargesChangeHandler}
-          //   value={formData.average_charges}
-          ref={ChargesRef}
-        />
-        <Form.Item className="addservice-form__label">
-          Additional Details
-        </Form.Item>
-        <Input
-          className="addservice__input"
-          onChange={addDeatilsChangeHandler}
-          value={formData.additional_details}
-          ref={AddDeatilsRef}
-        />
-        <Button
-          type="primary"
-          className="addservcie__submit-btn"
-          onClick={submitHandler}
+        {/* <Form.Item
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Name!",
+            },
+          ]}
+          className="label"
         >
-          Update
-        </Button>
+          <Input
+            // onChange={nameChangeHandler}
+            className="input"
+          />
+        </Form.Item> */}
+
+        <Form.Item
+          label="Working Location"
+          name="location"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Working Location!",
+            },
+          ]}
+          className="label"
+        >
+          <Input
+            // onChange={addressChangeHandler}
+            className="input"
+          />
+          {/* <button className="addservice__search__location" onClick={onLocation}>
+            <i className="bx bx-map "></i>
+          </button> */}
+        </Form.Item>
+
+        <Form.Item
+          label="Average Charges"
+          name="charges"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Average Charges!",
+            },
+            {
+              pattern: /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/,
+              message: "Please enter valid charges",
+            },
+            {
+              max: 4,
+              message: "Charges must not be greater then 9999",
+            },
+          ]}
+          className="label"
+        >
+          <Input name="charges" className="input" />
+        </Form.Item>
+
+        <Form.Item
+          label="Additional Details"
+          name="addDetails"
+          className="label"
+        >
+          <Input
+            // onChange={addDeatilsChangeHandler}
+            className="input"
+          />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="submitbutton">
+            UPDATE SERVICE
+          </Button>
+        </Form.Item>
       </Form>
     </>
   );

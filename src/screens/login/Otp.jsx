@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyOtpRequest } from "../../store/auth/actions";
@@ -6,12 +6,11 @@ import "./login.less";
 import { Form, Input, Button } from "antd";
 
 const Otp = ({ mobile, onBack, isUser }) => {
-  console.log(isUser);
   // const [otp, setOtp] = useState("");
   const hashedToken = useSelector((state) => state.auth.hashedToken);
   const dispatch = useDispatch();
 
-  const handleSubmit = (value) => {
+  const handlesubmit = (value) => {
     dispatch(verifyOtpRequest(mobile, hashedToken, value.otp, isUser));
     // setIsRequested(true);
   };
@@ -29,7 +28,7 @@ const Otp = ({ mobile, onBack, isUser }) => {
           <EditIcon />
         </div>
       </div>
-      <Form name="basic" onFinish={handleSubmit} layout="vertical">
+      <Form name="basic" onFinish={handlesubmit} layout="vertical">
         <Form.Item
           name="otp"
           rules={[

@@ -12,11 +12,10 @@ export class Authenticator {
   }
 
   static removeToken() {
-    return (
-      localStorage.removeItem("authToken"),
-      localStorage.removeItem("Mobile"),
-      localStorage.removeItem("isUser")
-    );
+    return localStorage.clear();
+    // localStorage.removeItem("authToken"),
+    // localStorage.removeItem("Mobile"),
+    // localStorage.removeItem("isUser")
   }
 
   static setMobile(mobile) {
