@@ -2,28 +2,34 @@ import React from "react";
 import PendingCard from "./atoms/PendingCard";
 
 const PendingRequest = ({ props }) => {
-  const availale_req = props;
+  const available_req = props;
+  const request_timeslot = new Date().toLocaleString();
+
   return (
     <>
-      {availale_req.length > 0 ? (
+      {available_req.length > 0 ? (
         <div>
-          <h2 className="page-header">All Pending Request</h2>
+          <div className="page-header">All Pending Request</div>
 
           <div className="pr_card__body">
-            {availale_req.map((item, index) => (
+            {available_req.map((item, index) => (
               <PendingCard
                 key={index}
+                id={item.id}
+                status={item.status}
                 user_name={item.user_name}
                 service_name={item.service_name}
-                location={item.user_address}
-                mobile={item.user_mobile}
-                request_timeslot={item.request_timeslot}
+                location={item.address_json}
+                mobile={item.contact_number}
+                request_timeslot={request_timeslot}
               />
             ))}
           </div>
         </div>
       ) : (
-        <h2>No Pending Request. Please visit in sometime...</h2>
+        <div className="page-header">
+          No Pending Request. Please visit in sometime!!
+        </div>
       )}
     </>
   );

@@ -11,7 +11,10 @@
 .sidebar__logo {
   height: 150px;
   display: flex;
+  font-size: 30px;
   align-items: center;
+  font-style: italic;
+  color: red;
   justify-content: center;
 }
 
@@ -28,7 +31,7 @@
   display: flex;
   align-items: center;
   font-weight: 600;
-  color: black;
+  /* color: black; */
   transition: color 0.3s ease 0s;
 }
 

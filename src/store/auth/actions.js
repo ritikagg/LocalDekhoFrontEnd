@@ -14,7 +14,6 @@ export const actions = {
 // prop - { type, handler, errorHandler? }
 
 export const sendOtpRequest = (mobile) => {
-  console.log(mobile);
   return apiHandler({
     action: "auth/" + actions.SEND_OTP,
     handler: async () => {
@@ -29,15 +28,16 @@ export const sendOtpRequest = (mobile) => {
 export const verifyOtpRequest = (mobile, hashedToken, otp, isUser) => {
   return apiHandler({
     action: "auth/" + actions.VERIFY_OTP,
-    // handler: () => LoginOtpVerification(mobile, hashedToken, otp, isUser),
-    handler: () => ({
-      token: "wfef",
-      isUser: isUser,
-      mobile: mobile,
-      userData: {
-        user_id: 1,
-      },
-    }), //LoginOtpVerification(mobile, hashedToken, otp),
+    handler: () => LoginOtpVerification(mobile, hashedToken, otp, isUser),
+    // handler: () => ({
+    //   token: "wfef",
+    //   isUser: isUser,
+    //   mobile: mobile,
+    //   userData: {
+    //     user_id: 1,
+    //     helper_id: 1,
+    //   },
+    // }), //LoginOtpVerification(mobile, hashedToken, otp),
   });
 };
 

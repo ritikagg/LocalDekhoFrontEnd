@@ -9,7 +9,6 @@ const themeSlice = createSlice({
   reducers: {
     SET_MODE(state, action) {
       state.mode = action.payload;
-      // console.log("updated");
     },
     SET_COLOR(state, action) {
       state.color = action.payload;

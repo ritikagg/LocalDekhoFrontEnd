@@ -1,11 +1,50 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { message } from "antd";
+import { updateRequestStatusAPI } from "../../../../../store/helpers/helpers-slice";
 import "./pendingcard.css";
 
 const PendingCard = (props) => {
-  const [isAccepted, setIsAccepted] = useState(false);
+  const initialState = props.status === "helper_accepted" ? true : false;
+
+  const [isAccepted, setIsAccepted] = useState(initialState);
+
+  const dispatch = useDispatch();
+
+  const id = props.id;
   // const [isDeclined, setIsDeclined] = useState(false);
   const acceptHandle = () => {
+    const action = `helper_accepted`;
     setIsAccepted(true);
+    const key = "updatable";
+
+    message.loading({ content: "Hold tight...", key });
+    setTimeout(() => {
+      message.success({
+        content: "Service Accepted. Wait for customer to accept!!",
+        key,
+        duration: 3,
+      });
+    }, 3000);
+
+    dispatch(updateRequestStatusAPI(id, action));
+  };
+
+  const declineHandle = () => {
+    const action = `helper_declined`;
+    setIsAccepted(true);
+    const key = "updatable";
+
+    message.loading({ content: "Hold tight...", key });
+    setTimeout(() => {
+      message.warning({
+        content: "Service Declined.",
+        key,
+        duration: 3,
+      });
+    }, 3000);
+
+    dispatch(updateRequestStatusAPI(id, action));
   };
 
   let control = (
@@ -13,7 +52,9 @@ const PendingCard = (props) => {
       <div className="pr_service-card__accept" onClick={acceptHandle}>
         Accept
       </div>
-      <div className="pr_service-card__decline">Decline</div>
+      <div className="pr_service-card__decline" onClick={declineHandle}>
+        Decline
+      </div>
     </div>
   );
 

@@ -69,7 +69,7 @@ const Navbar = () => {
                     className="nav-link"
                     to="/dashboard"
                   >
-                    Profile
+                    Dashboard
                   </NavLink>
                 )}
               </li>
@@ -83,7 +83,7 @@ const Navbar = () => {
           setExpanded(!expanded);
         }}
       >
-        {expanded ? "x" : <i className="bx bx-menu-alt-right"></i>}
+        {expanded ? "X" : <i className="bx bx-menu-alt-right"></i>}
       </div>
     </>
   );

@@ -23,15 +23,18 @@ const Login = () => {
   const [mobile, setMobile] = useState(auth.mobile);
   const [isRequested, setIsRequested] = useState(false);
 
+  const requestDetails = useSelector((state) => state.reqService);
+  const initialMobile = requestDetails.mobile;
+
   useEffect(() => {
     if (auth.hashedToken) {
       setIsRequested(true);
     }
   }, [auth.hashedToken]);
 
-  const handleSubmit = (value) => {
+  const handlesubmit = (value) => {
     setMobile(value.mobile);
-    dispatch(sendOtpRequest(mobile));
+    dispatch(sendOtpRequest(value.mobile));
   };
 
   const [isUser, setIsUser] = useState(true);
@@ -93,9 +96,9 @@ const Login = () => {
       <div className="flex">
         <Form
           name="basic"
-          onFinish={handleSubmit}
-          handleSubmit
+          onFinish={handlesubmit}
           layout="vertical"
+          initialValues={{ mobile: initialMobile }}
         >
           <Form.Item
             label="Mobile Number"
@@ -116,7 +119,12 @@ const Login = () => {
             ]}
             className="label"
           >
-            <Input className="input" placeholder="9306871479" />
+            <Input
+              className="input"
+              placeholder="9306871479"
+              name="mobile"
+              disabled={!!initialMobile}
+            />
           </Form.Item>
 
           <Form.Item>

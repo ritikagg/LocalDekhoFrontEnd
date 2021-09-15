@@ -26,12 +26,14 @@
 .acc_info__detail {
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 500;
   padding-top: 4px;
 }
 .acc_info__service-name {
   padding-top: 32px;
-  font-size: 16px;
+  font-size: 32px;
+  font-weight: 500;
   padding-bottom: 16px;
 }
 .acc_info__deatil-item {
@@ -77,6 +79,8 @@
   background-color: rgb(236, 236, 236);
   color: #eb5858;
   margin-top: 54px;
+  margin-left: 2px;
+  margin-right: 2px;
   padding-top: 12px;
   padding-bottom: 12px;
   padding-left: 18px;

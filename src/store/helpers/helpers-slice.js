@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   addNewHelperService,
   getHelpersDetails,
+  updateServiceStatus,
+  editHelperService,
 } from "../../services/helperService";
-import { wait } from "../helper";
 
 const helperSlice = createSlice({
   name: "helper",
@@ -11,117 +12,35 @@ const helperSlice = createSlice({
     allServices: [],
     allRequest: [],
     loading: true,
-    // allServices: [
-    //   {
-    //     id: 1,
-    //     helper_id: "1",
-    //     service_id: "2",
-    //     service_name: "Food Delivery",
-    //     address: "Paschim Vihar, New Delhi",
-    //     avg_charges: 500.0,
-    //     additional_deatils: "",
-    //   },
-    //   {
-    //     id: 3,
-    //     helper_id: "1",
-    //     service_id: "3",
-    //     service_name: "Tuition",
-    //     address: "Paschim Vihar, New Delhi",
-    //     avg_charges: 500.0,
-    //     additional_deatils: "",
-    //   },
-    //   {
-    //     id: 4,
-    //     helper_id: "1",
-    //     service_id: "7",
-    //     service_name: "Laundry",
-    //     address: "Paschim Vihar, New Delhi",
-    //     avg_charges: 500.0,
-    //     additional_deatils: "",
-    //   },
-    //   {
-    //     id: 10,
-    //     helper_id: "1",
-    //     service_id: "8",
-    //     service_name: "Cook",
-    //     address: "Paschim Vihar, New Delhi",
-    //     avg_charges: 500.0,
-    //     additional_deatils: "",
-    //   },
-    // ],
-    // allRequest: [
-    //   {
-    //     status: "pending",
-    //     id: 1,
-    //     helper_id: 1,
-    //     service_id: 2,
-    //     service_name: "Food Delivery",
-    //     user_id: 1,
-    //     user_name: "John",
-    //     user_mobile: "9958936359",
-    //     user_address: "Paschim Vihar, New Delhi",
-    //     request_timeslot: "Sep 12, 2021 - 12:00 PM",
-    //   },
-    //   {
-    //     status: "pending",
-    //     id: 2,
-    //     helper_id: 1,
-    //     service_id: 3,
-    //     service_name: "Electrician",
-    //     user_id: 10,
-    //     user_name: "Johnny",
-    //     user_mobile: "9958936359",
-    //     user_address: "Paschim Vihar, New Delhi",
-    //     request_timeslot: "Sep 12, 2021 - 12:00 PM",
-    //   },
-    //   {
-    //     status: "scheduled",
-    //     id: 3,
-    //     helper_id: 1,
-    //     service_id: 3,
-    //     service_name: "Electrician",
-    //     user_id: 10,
-    //     user_name: "Johnny",
-    //     user_mobile: "9958936359",
-    //     user_address: "Paschim Vihar, New Delhi",
-    //     request_timeslot: "Sep 12, 2021 - 12:00 PM",
-    //   },
-    //   {
-    //     status: "completed",
-    //     id: 4,
-    //     helper_id: 1,
-    //     service_id: 3,
-    //     service_name: "Electrician",
-    //     user_id: 10,
-    //     user_name: "Johnny",
-    //     user_mobile: "9958936359",
-    //     user_address: "Paschim Vihar, New Delhi",
-    //     request_timeslot: "Sep 12, 2020 - 12:00 PM",
-    //   },
-    // ],
+    addserviceloading: true,
+    updateStatusLoading: true,
   },
 
   reducers: {
     UPDATE_HELPER_DETAILS(state, action) {
-      // console.log(action.payload);
-      // state = action.payload;
       state.allServices = action.payload.allServices;
       state.allRequest = action.payload.allRequest;
       state.loading = false;
+    },
+
+    UPDATE_ADD_SERVICE(state, action) {
+      state.addserviceloading = false;
+    },
+
+    UPDATE_SERVICE_STATUS(state, action) {
+      state.updateStatusLoading = false;
     },
   },
 });
 
 export const getHelpersDetailsAPI = (helper_id) => {
-  console.log(helper_id);
   return async (dispatch) => {
     const getDetails = async () => {
-      await wait(2000);
+      // await wait(2000);
       const res = await getHelpersDetails(helper_id);
       return res;
     };
     const res = await getDetails();
-    console.log(res);
     if (res.success) {
       dispatch(
         helperActions.UPDATE_HELPER_DETAILS({
@@ -133,14 +52,42 @@ export const getHelpersDetailsAPI = (helper_id) => {
   };
 };
 
-export const addNewHelperServiceAPI = (formData) => {
-  return async () => {
+export const addNewHelperServiceAPI = (data, name) => {
+  return async (dispatch) => {
     const addService = async () => {
-      const res = await addNewHelperService(formData);
+      const res = await addNewHelperService(data, name);
       return res;
     };
     const res = await addService();
-    console.log(res);
+    if (res.data.success) {
+      dispatch(helperActions.UPDATE_ADD_SERVICE);
+    }
+  };
+};
+
+export const editHelperServiceAPI = (data, helper_id, service_id) => {
+  return async (dispatch) => {
+    const editService = async () => {
+      const res = await editHelperService(data, helper_id, service_id);
+      return res;
+    };
+    const res = await editService();
+    if (res.data.success) {
+      dispatch(helperActions.UPDATE_ADD_SERVICE);
+    }
+  };
+};
+
+export const updateRequestStatusAPI = (id, action) => {
+  return async (dispatch) => {
+    const updateStatus = async () => {
+      const res = await updateServiceStatus(id, action);
+      return res;
+    };
+    const res = await updateStatus();
+    if (res.data.success) {
+      dispatch(helperActions.UPDATE_SERVICE_STATUS);
+    }
   };
 };
 

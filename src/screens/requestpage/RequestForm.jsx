@@ -14,17 +14,18 @@ const RequestForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log(ServiceDetails.location);
     setLocation(ServiceDetails.location);
-  }, []);
+  }, [ServiceDetails.location]);
 
   const submitHandler = (values) => {
     dispatch(
       reqServiceActions.UPDATE_DETAILS({
         ...ServiceDetails,
-        location: location,
+        location: values.location,
+        name: values.name,
         datetimeSlot: moment(values.datetimeSlot).format(),
         requestedService: ServiceDetails.requestedService,
+        mobile: values.mobile,
       })
     );
     setRedirect(true);
@@ -68,18 +69,27 @@ const RequestForm = () => {
         onFinish={submitHandler}
         layout="vertical"
         className="requestService__form_container"
+        initialValues={{
+          serviceCategory: ServiceDetails.requestedService,
+          location: ServiceDetails.location,
+        }}
       >
         <div className="flex">
           <div className="flexbox_inner">
-            <Form.Item className="label" label="Service Category">
+            <Form.Item
+              className="label"
+              label="Service Category"
+              name="serviceCategory"
+            >
               <Input
                 value={ServiceDetails.requestedService}
                 disabled
                 className="input"
+                name="serviceCategory"
               />
             </Form.Item>
           </div>
-          <div className="flexbox_inner">
+          <div className="flexbox_inner enzyme_test">
             <Form.Item
               label="Mobile"
               name="mobile"
@@ -99,13 +109,31 @@ const RequestForm = () => {
               ]}
               className="label"
             >
-              <Input value={ServiceDetails.mobile} className="input" />
+              <Input
+                value={ServiceDetails.mobile}
+                className="input"
+                name="mobile"
+              />
             </Form.Item>
           </div>
         </div>
+
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Name!",
+            },
+          ]}
+          className="label"
+        >
+          <Input onChange={addressChangeHandle} className="input" name="name" />
+        </Form.Item>
+
         <Form.Item
           label="Location"
-          name="location"
           rules={[
             {
               required: true,
@@ -113,12 +141,9 @@ const RequestForm = () => {
             },
           ]}
           className="label"
+          name="location"
         >
-          <Input
-            value={location}
-            onChange={addressChangeHandle}
-            className="input"
-          />
+          <Input value={location} className="input" name="location" />
         </Form.Item>
 
         <Form.Item

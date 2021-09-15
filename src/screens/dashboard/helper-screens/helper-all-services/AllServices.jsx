@@ -50,7 +50,7 @@ const AllServices = ({ props }) => {
     <>
       {availale_service.length > 0 ? (
         <div>
-          <h2 className="page-header">All Services</h2>
+          <div className="page-header">All Services</div>
 
           <div className="card__body">
             {q && filtered.length === 0 && <h1>No results found</h1>}

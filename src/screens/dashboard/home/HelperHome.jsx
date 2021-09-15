@@ -33,7 +33,7 @@ const HelperHome = ({ props }) => {
   });
 
   let pendingReq = props.allRequest.filter((item) => {
-    return item.status === "pending";
+    return item.status === "pending" || item.status === "helper_accepted";
   });
 
   items.map((item) => {
