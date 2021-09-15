@@ -63,7 +63,7 @@ export const requestNewServiceAPI = (
   location,
   postal_code
 ) => {
-  return async () => {
+  return async (dispatch) => {
     const requestService = async () => {
       const res = await requestNewService(
         user_id,
@@ -75,6 +75,9 @@ export const requestNewServiceAPI = (
       return res;
     };
     const res = await requestService();
+    if (res.data.success) {
+      dispatch(userActions.UPDATE_SERVICE_STATUS);
+    }
   };
 };
 
