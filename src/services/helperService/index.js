@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const domainURL = `https://localdekhobackend.herokuapp.com`;
-const domainURL = `http://localhost:5000`;
+const domainURL = `https://localdekhobackend.herokuapp.com`;
+// const domainURL = `http://localhost:5000`;
 
 export const addNewHelperService = async (data, name) => {
   // console.log("abc");
