@@ -38,7 +38,6 @@ const Routes = () => {
   const dispatch = useDispatch();
   const helper_id = HelperProfile.getHelperId();
   const user_id = UserProfile.getUserId();
-  // const user_id = UserProfile.getUserId();
   const [interval, setInterval] = useState(false);
   const reqService = useSelector((state) => state.reqService);
 
@@ -96,8 +95,8 @@ const Routes = () => {
         setInterval(false);
       };
     }
-  }, [dispatch, helper_id, isUser, user_id]);
-  // }, [dispatch, helper_id, isUser, interval, user_id]);
+    // }, [dispatch, helper_id, isUser, user_id]);
+  }, [dispatch, helper_id, isUser, interval, user_id]);
 
   let isLoading = true;
   let AllDetails = [];
@@ -204,7 +203,6 @@ const Routes = () => {
                 )}
               />
             </>
-            // <Route path="/dashboard/allservices" exact component={AllServices} />
           )}
           <Route
             render={() => (
