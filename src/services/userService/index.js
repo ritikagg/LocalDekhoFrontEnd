@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const domainURL = `https://localdekhobackend.herokuapp.com`;
-// const domainURL = `http://localhost:5000`;
+// const domainURL = `https://localdekhobackend.herokuapp.com`;
+const domainURL = `http://localhost:5000`;
 
 export const getUserDetails = async (user_id) => {
   try {
@@ -18,11 +18,13 @@ export const getUserDetails = async (user_id) => {
 };
 
 // On action to accept or decline request
-export const updateServiceStatus = async (id, action) => {
+export const updateServiceStatus = async (id, action, service_id, user_id) => {
   try {
     const response = await axios.put(domainURL + `/api/users/updateService`, {
       id: id,
       action: action,
+      service_id: service_id,
+      user_id: user_id,
     });
     return response;
   } catch (error) {

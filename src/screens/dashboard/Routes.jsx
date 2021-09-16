@@ -42,7 +42,7 @@ const Routes = () => {
   const [interval, setInterval] = useState(false);
   const reqService = useSelector((state) => state.reqService);
 
-  const [IsConfirm, setIsConfirm] = useState(false);
+  // const [IsConfirm, setIsConfirm] = useState(false);
 
   useEffect(() => {
     if (reqService.requestedService !== undefined) {
@@ -55,9 +55,8 @@ const Routes = () => {
           reqService.postal_code
         )
       );
-      setIsConfirm(true);
     }
-  }, [dispatch, IsConfirm, reqService, user_id]);
+  }, [dispatch, reqService, user_id]);
 
   useEffect(() => {
     if (!isUser) {
@@ -97,8 +96,8 @@ const Routes = () => {
         setInterval(false);
       };
     }
-    // }, [dispatch, helper_id, isUser, user_id]);
-  }, [dispatch, helper_id, isUser, interval, user_id]);
+  }, [dispatch, helper_id, isUser, user_id]);
+  // }, [dispatch, helper_id, isUser, interval, user_id]);
 
   let isLoading = true;
   let AllDetails = [];
@@ -134,7 +133,6 @@ const Routes = () => {
                     acceptedSer={AllDetails.allRequest.filter((item) => {
                       return item.status === "helper_accepted";
                     })}
-                    IsConfirm={IsConfirm}
                   />
                 )}
               />

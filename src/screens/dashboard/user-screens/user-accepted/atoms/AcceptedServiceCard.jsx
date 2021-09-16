@@ -13,12 +13,14 @@ const AcceptedServiceCard = (props) => {
   const dispatch = useDispatch();
 
   const id = props.id;
+  const service_id = props.service_id;
+  const user_id = props.user_id;
   const key = "updatable";
 
   const acceptHandle = () => {
     const action = `scheduled`;
     setIsAccepted(true);
-    dispatch(updateRequestStatusAPI(id, action));
+    dispatch(updateRequestStatusAPI(id, action, service_id, user_id));
     message.loading({ content: "Hold tight...", key });
     setTimeout(() => {
       message.success({ content: "Service Scheduled!!", key, duration: 3 });
@@ -60,7 +62,8 @@ const AcceptedServiceCard = (props) => {
                   +91 - {props.mobile}
                 </div>
               </div>
-              <div>
+              <div className="acc_info__detail">
+                <img src={star} className="filter" alt="rating" />
                 <img src={star} className="filter" alt="rating" />
                 <img src={star} className="filter" alt="rating" />
                 <img src={star} className="filter" alt="rating" />

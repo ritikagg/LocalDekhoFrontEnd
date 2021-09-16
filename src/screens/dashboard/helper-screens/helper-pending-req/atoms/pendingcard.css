@@ -13,7 +13,7 @@
   z-index: 1;
   transition: color 0.5s ease 0s;
   margin: 8px;
-  /* min-width: 350px; */
+  min-width: 320px;
 }
 
 .pr_service-icon {

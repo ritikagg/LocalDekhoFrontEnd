@@ -46,7 +46,7 @@ const Navbar = () => {
                   activeClassName="is-active"
                   exact={true}
                   className="nav-link"
-                  to="/about"
+                  to="/"
                 >
                   About
                 </NavLink>

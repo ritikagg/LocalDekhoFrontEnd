@@ -60,7 +60,7 @@ const PendingCard = (props) => {
 
   if (isAccepted) {
     control = (
-      <div className="pr_service-card__control">
+      <div className="pr_service-card__control" style={{ cursor: "no-drop" }}>
         <div className="pr_service-card__accept">Waiting for Confirmation</div>
       </div>
     );
