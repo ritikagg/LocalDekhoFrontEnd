@@ -43,10 +43,10 @@ export const getUsersDetailsAPI = (user_id) => {
   };
 };
 
-export const updateRequestStatusAPI = (id, action) => {
+export const updateRequestStatusAPI = (id, action, service_id, user_id) => {
   return async (dispatch) => {
     const updateStatus = async () => {
-      const res = await updateServiceStatus(id, action);
+      const res = await updateServiceStatus(id, action, service_id, user_id);
       return res;
     };
     const res = await updateStatus();

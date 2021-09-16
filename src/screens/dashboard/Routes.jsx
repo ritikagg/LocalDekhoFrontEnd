@@ -38,11 +38,10 @@ const Routes = () => {
   const dispatch = useDispatch();
   const helper_id = HelperProfile.getHelperId();
   const user_id = UserProfile.getUserId();
-  // const user_id = UserProfile.getUserId();
   const [interval, setInterval] = useState(false);
   const reqService = useSelector((state) => state.reqService);
 
-  const [IsConfirm, setIsConfirm] = useState(false);
+  // const [IsConfirm, setIsConfirm] = useState(false);
 
   useEffect(() => {
     if (reqService.requestedService !== undefined) {
@@ -55,9 +54,8 @@ const Routes = () => {
           reqService.postal_code
         )
       );
-      setIsConfirm(true);
     }
-  }, [dispatch, IsConfirm, reqService, user_id]);
+  }, [dispatch, reqService, user_id]);
 
   useEffect(() => {
     if (!isUser) {
@@ -134,7 +132,6 @@ const Routes = () => {
                     acceptedSer={AllDetails.allRequest.filter((item) => {
                       return item.status === "helper_accepted";
                     })}
-                    IsConfirm={IsConfirm}
                   />
                 )}
               />
@@ -206,7 +203,6 @@ const Routes = () => {
                 )}
               />
             </>
-            // <Route path="/dashboard/allservices" exact component={AllServices} />
           )}
           <Route
             render={() => (

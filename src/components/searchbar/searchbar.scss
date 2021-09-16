@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import "../../styles/variables.scss";
 
 body {
   background: #f2f2f2;
@@ -36,6 +37,10 @@ body {
     border: none;
     padding: 16px;
     border-radius: 0px;
+  }
+  @include mobile {
+    // display: none;
+    width: 80%;
   }
 }
 
@@ -92,6 +97,9 @@ body {
   border-radius: 0 8px 8px 0;
   cursor: pointer;
   font-size: 16px;
+  @include mobile {
+    width: 60px;
+  }
 }
 
 .category__list-option {
@@ -107,4 +115,15 @@ body {
   width: 80%;
 }
 
+@include mobile {
+  .search__box-desktop {
+    display: None;
+  }
+}
+
+@include desktop {
+  .search__box-mobile {
+    display: None;
+  }
+}
 /*Resize the wrap to see the search bar change!*/

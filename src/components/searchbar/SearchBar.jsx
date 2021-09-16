@@ -135,7 +135,11 @@ const SearchBar = () => {
               className="search__btn"
               // onClick={searchButtonHandler(latlng)}
             >
-              <div>Search for Service</div>
+              <div className="search__box-desktop">Search for Service</div>
+
+              <div className="search__box-mobile">
+                <i className="bx bx-search bx-tada"></i>
+              </div>
             </button>
           </div>
         </div>

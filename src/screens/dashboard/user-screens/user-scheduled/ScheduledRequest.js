@@ -14,7 +14,7 @@ const ScheduledRequest = ({ props }) => {
             helper_name={item.helper_name}
             service_name={item.service_name}
             service_type={item.ServiceType}
-            // location={item.Location}
+            location={item.Location}
             mobile={item.contact_number}
             charges={item.average_charges}
           />

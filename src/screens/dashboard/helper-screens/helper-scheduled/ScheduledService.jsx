@@ -16,7 +16,7 @@ const ScheduledService = ({ props }) => {
                 key={index}
                 user_name={item.user_name}
                 service_name={item.service_name}
-                location={item.user_address}
+                location={item.address_json}
                 mobile={item.contact_number}
                 request_timeslot={request_timeslot}
               />

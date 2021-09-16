@@ -11,18 +11,18 @@
 // points are seamless.
 
 $mq-mobile: 320px !default;
-$mq-desktop: 768px !default;
+$mq-desktop: 928px !default;
 
 // Both portrait and landscape
 @mixin mobile {
-	@media (max-width: $mq-desktop) {
-		@content;
-	}
+  @media (max-width: $mq-desktop) {
+    @content;
+  }
 }
 
 // Everything larger than a landscape tablet but less than or equal to the desktop
 @mixin desktop {
-	@media only screen and (min-width: $mq-desktop) {
-		@content;
-	}
+  @media only screen and (min-width: $mq-desktop) {
+    @content;
+  }
 }
