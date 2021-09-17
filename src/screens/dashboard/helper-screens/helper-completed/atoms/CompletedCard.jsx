@@ -5,7 +5,7 @@ const CompletedCard = (props) => {
   return (
     <div className="cr_service-card">
       <div className="cr_service-card__header">
-        <i className="bx bx-rocket cr_service-icon"></i>
+        <i className="bx bx-rocket s_service-icon"></i>
         {/* <div>{props.service_name}</div> */}
         <div className="cr_service-card__service-type">
           {props.service_name}

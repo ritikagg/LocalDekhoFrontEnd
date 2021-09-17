@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import AcceptedRequest from "./user-screens/user-accepted/AcceptedRequest";
 import ScheduledRequest from "./user-screens/user-scheduled/ScheduledRequest";
+import SpecificAccepted from "./user-screens/user-accepted/SpecificAccepted";
+import CompletedService from "./user-screens/user-previous/CompletedService";
 
 import AllServices from "./helper-screens/helper-all-services/AllServices";
 import PendingRequest from "./helper-screens/helper-pending-req/PendingRequest";
@@ -13,16 +15,15 @@ import ScheduledService from "./helper-screens/helper-scheduled/ScheduledService
 import CompletedRequest from "./helper-screens/helper-completed/CompletedRequest";
 
 import { getHelpersDetailsAPI } from "../../store/helpers/helpers-slice";
-import { HelperProfile } from "../../util/helperUtil";
-import { UserProfile } from "../../util/userUtil";
-import loader2 from "../../assets/lottie/loader2.json";
-import Lottie from "react-lottie";
-
-import CompletedService from "./user-screens/user-previous/CompletedService";
 import {
   getUsersDetailsAPI,
   requestNewServiceAPI,
 } from "../../store/users/user-slice";
+
+import { HelperProfile } from "../../util/helperUtil";
+import { UserProfile } from "../../util/userUtil";
+import loader2 from "../../assets/lottie/loader2.json";
+import Lottie from "react-lottie";
 
 const Routes = () => {
   const defaultOptions = {
@@ -40,8 +41,6 @@ const Routes = () => {
   const user_id = UserProfile.getUserId();
   const [interval, setInterval] = useState(false);
   const reqService = useSelector((state) => state.reqService);
-
-  // const [IsConfirm, setIsConfirm] = useState(false);
 
   useEffect(() => {
     if (reqService.requestedService !== undefined) {
@@ -74,7 +73,6 @@ const Routes = () => {
   useEffect(() => {
     if (!isUser) {
       const timeout = setTimeout(() => {
-        // console.log("timeout out after 3 sec");
         setInterval(true);
         dispatch(getHelpersDetailsAPI(helper_id));
       }, 3000);
@@ -86,7 +84,6 @@ const Routes = () => {
 
     if (isUser) {
       const timeout = setTimeout(() => {
-        // console.log("timeout out after 3 sec");
         setInterval(true);
         dispatch(getUsersDetailsAPI(user_id));
       }, 3000);
@@ -127,35 +124,22 @@ const Routes = () => {
               <Route
                 path="/dashboard/accepted"
                 exact
-                render={() => (
-                  <AcceptedRequest
-                    acceptedSer={AllDetails.allRequest.filter((item) => {
-                      return item.status === "helper_accepted";
-                    })}
-                  />
-                )}
+                component={AcceptedRequest}
+              />
+              <Route
+                path="/dashboard/accepted/:cat"
+                exact
+                component={SpecificAccepted}
               />
               <Route
                 path="/dashboard/scheduled"
                 exact
-                render={() => (
-                  <ScheduledRequest
-                    props={AllDetails.allRequest.filter((item) => {
-                      return item.status === "scheduled";
-                    })}
-                  />
-                )}
+                component={ScheduledRequest}
               />
               <Route
                 path="/dashboard/previous"
                 exact
-                render={() => (
-                  <CompletedService
-                    props={AllDetails.allRequest.filter((item) => {
-                      return item.status === "completed";
-                    })}
-                  />
-                )}
+                component={CompletedService}
               />
             </>
           )}

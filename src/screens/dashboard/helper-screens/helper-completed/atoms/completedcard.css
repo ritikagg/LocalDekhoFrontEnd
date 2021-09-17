@@ -80,6 +80,14 @@
   cursor: pointer;
 }
 
+.cr_service-icon {
+  font-size: 28px;
+  background: #f6f6f6;
+  padding: 16px;
+  border-radius: 50%;
+  color: #eb5858;
+}
+
 .cr_service_loc {
   display: flex;
   flex-direction: row;

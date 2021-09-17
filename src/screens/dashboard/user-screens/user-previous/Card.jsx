@@ -4,7 +4,7 @@ const Card = (props) => {
   return (
     <div className="acc_service-card">
       <div className="acc_service-card__header">
-        <i className="bx bx-rocket acc_service-icon"></i>
+        <i className="bx bx-rocket s_service-icon"></i>
         <div className="acc_service-card__service-type">
           {props.service_name}
         </div>
