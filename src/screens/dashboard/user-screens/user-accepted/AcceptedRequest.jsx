@@ -1,14 +1,43 @@
 import React, { useEffect } from "react";
 import { message } from "antd";
-import AcceptedServiceCard from "./atoms/AcceptedServiceCard";
 import "./acceptedservice.css";
 import { useSelector, useDispatch } from "react-redux";
 import { reqServiceActions } from "../../../../store/reqService/reqService-slice";
-// import AccptedTable from "./molecule/AccptedTable";
+import { uniqBy } from "lodash";
+import Groupedcard from "./atoms/GroupedCard";
+import { useLocation } from "react-router-dom";
 
-const AcceptedRequest = (props) => {
-  const available_service = props.acceptedSer;
-  console.log(available_service);
+const AcceptedRequest = () => {
+  const { search } = useLocation();
+
+  const searchParam = new URLSearchParams(search);
+
+  const allRequest = useSelector((state) => state.user.allRequest);
+
+  let available_service = useSelector((state) => state.user.acceptedRequest);
+  let pendingRequest = allRequest.filter((i) => i.status === "pending");
+
+  const uniqAccpetedServiceList = uniqBy(available_service, "service_name").map(
+    (i) => i.service_name
+  );
+
+  pendingRequest = pendingRequest.filter(
+    (i) => !uniqAccpetedServiceList.includes(i.service_name)
+  );
+
+  const q = searchParam.get("q");
+  available_service = available_service.filter((item) => {
+    return q
+      ? item.service_name.toLowerCase().indexOf(q.toLowerCase()) >= 0
+      : true;
+  });
+
+  pendingRequest = pendingRequest.filter((item) => {
+    return q
+      ? item.service_name.toLowerCase().indexOf(q.toLowerCase()) >= 0
+      : true;
+  });
+
   const reqSer = useSelector((state) => state.reqService);
   const dispatch = useDispatch();
 
@@ -20,12 +49,7 @@ const AcceptedRequest = (props) => {
       data[item.service_name].push(item);
     }
     return data;
-  }, []);
-
-  console.log(groupedData);
-  // for (let i in groupedData) {
-  //   console.log(i);
-  // }
+  }, {});
 
   useEffect(() => {
     dispatch(
@@ -43,59 +67,26 @@ const AcceptedRequest = (props) => {
     }
   }, [dispatch, reqSer]);
 
-  // const [IsExpand, setIsExpand] = useState(false);
-
-  // const expandHandler = () => {
-  //   setIsExpand(!IsExpand);
-  // };
-
-  // const column = [
-  //   {
-  //     average_charges: 1900,
-  //     contact_number: "9306871479",
-  //     created_at: "2021-09-15T13:20:59.000Z",
-  //     helper_id: 1,
-  //     helper_name: "Jammy",
-  //     id: 27,
-  //     service_id: 5,
-  //     service_name: "Carpenter",
-  //     service_type: null,
-  //     status: "helper_accepted",
-  //     updated_at: "2021-09-15T13:20:59.000Z",
-  //   },
-  //   {
-  //     average_charges: 1900,
-  //     contact_number: "9306871479",
-  //     created_at: "2021-09-15T13:20:59.000Z",
-  //     helper_id: 1,
-  //     helper_name: "Jammy",
-  //     id: 27,
-  //     service_id: 4,
-  //     service_name: "Mechanic",
-  //     service_type: null,
-  //     status: "helper_accepted",
-  //     updated_at: "2021-09-15T13:20:59.000Z",
-  //   },
-  // ];
-
   return (
     <>
-      {available_service.length > 0 ? (
+      {available_service.length + pendingRequest.length > 0 ? (
         <div>
-          <div className="page-header">All Services</div>
+          <div className="page-header">All Request</div>
           <div className="services__container">
-            {available_service.map((item, index) => (
-              <AcceptedServiceCard
-                key={index}
-                id={item.id}
-                service_id={item.service_id}
-                user_id={item.user_id}
-                helper_name={item.helper_name}
+            {Object.entries(groupedData).map((item) => (
+              <Groupedcard
+                count={item[1].length}
+                service_name={item[0]}
+                cardType="accepted"
+                status="Intrested"
+              />
+            ))}
+            {uniqBy(pendingRequest, "service_name").map((item) => (
+              <Groupedcard
+                count={0}
                 service_name={item.service_name}
-                service_type={item.ServiceType}
-                // location={item.Location}
-                mobile={item.contact_number}
-                charges={item.average_charges}
+                cardType="pending"
+                status="Waiting"
               />
             ))}
           </div>

@@ -1,6 +1,6 @@
+import { notification } from "antd";
 import axios from "axios";
 
-// const domainURL = `https://dry-dusk-06044.herokuapp.com`;
 const domainURL = `https://localdekhobackend.herokuapp.com`;
 // const domainURL = `http://localhost:5000`;
 
@@ -39,6 +39,14 @@ export const LoginOtpVerification = async (
     });
     return response.data;
   } catch (error) {
+    try {
+      if (error.response.data) {
+        notification.error({ message: error.response.data.msg });
+      }
+    } catch (e) {
+      notification.error({ message: "Something wrong happend" });
+    }
+
     throw error;
   }
 };

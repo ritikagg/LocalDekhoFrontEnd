@@ -1,14 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import Card from "./Card";
 
-const CompletedService = ({ props }) => {
+const CompletedService = () => {
   const { search } = useLocation();
 
   const searchParam = new URLSearchParams(search);
-
-  const availale_service = props;
+  const availale_service = useSelector((state) => state.user.completedRequest);
   const q = searchParam.get("q");
   const filtered = availale_service.filter((item) => {
     return q

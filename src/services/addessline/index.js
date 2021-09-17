@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// const domainURL = `https://dry-dusk-06044.herokuapp.com`;
 const domainURL = `https://localdekhobackend.herokuapp.com`;
 // const domainURL = `http://localhost:5000`;
 

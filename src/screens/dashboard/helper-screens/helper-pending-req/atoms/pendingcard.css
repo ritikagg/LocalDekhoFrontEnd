@@ -18,6 +18,10 @@
 
 .pr_service-icon {
   font-size: 28px;
+  background: #f6f6f6;
+  padding: 16px;
+  border-radius: 50%;
+  color: #eb5858;
 }
 
 .pr_info__detail {

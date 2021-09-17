@@ -1,8 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Card from "./Card";
 
-const ScheduledRequest = ({ props }) => {
-  const availale_service = props;
+const ScheduledRequest = () => {
+  const availale_service = useSelector((state) => state.user.scheduledRequest);
   return (
     <div>
       <div className="page-header">All Scheduled Services</div>

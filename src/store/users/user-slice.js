@@ -11,12 +11,24 @@ const userSlice = createSlice({
   initialState: {
     loading: true,
     allRequest: [],
+    acceptedRequest: [],
+    scheduledRequest: [],
+    completedRequest: [],
     updateStatusLoading: true,
   },
 
   reducers: {
     UPDATE_USER_DETAILS(state, action) {
       state.allRequest = action.payload.allRequest;
+      state.acceptedRequest = action.payload.allRequest.filter((item) => {
+        return item.status === "helper_accepted";
+      });
+      state.scheduledRequest = action.payload.allRequest.filter((item) => {
+        return item.status === "scheduled";
+      });
+      state.completedRequest = action.payload.allRequest.filter((item) => {
+        return item.status === "completed";
+      });
       state.loading = false;
     },
     UPDATE_SERVICE_STATUS(state, action) {
@@ -80,6 +92,16 @@ export const requestNewServiceAPI = (
     }
   };
 };
+
+// const groupedData = available_service.reduce(function (data, item) {
+//   if (item.service_name in data) {
+//     data[item.service_name].push(item);
+//   } else {
+//     data[item.service_name] = [];
+//     data[item.service_name].push(item);
+//   }
+//   return data;
+// }, []);
 
 export const userActions = userSlice.actions;
 
