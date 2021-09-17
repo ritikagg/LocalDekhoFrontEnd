@@ -1,9 +1,19 @@
 import React from "react";
 import PendingCard from "./atoms/PendingCard";
+import { useLocation } from "react-router-dom";
 
 const PendingRequest = ({ props }) => {
   const available_req = props;
+  const { search } = useLocation();
+  const searchParam = new URLSearchParams(search);
   const request_timeslot = new Date().toLocaleString();
+
+  const q = searchParam.get("q");
+  const filtered = available_req.filter((item) => {
+    return q
+      ? item.service_name.toLowerCase().indexOf(q.toLowerCase()) >= 0
+      : true;
+  });
 
   return (
     <>
@@ -12,7 +22,8 @@ const PendingRequest = ({ props }) => {
           <div className="page-header">All Pending Request</div>
 
           <div className="pr_card__body">
-            {available_req.map((item, index) => (
+            {q && filtered.length === 0 && <h1>No results found</h1>}
+            {filtered.map((item, index) => (
               <PendingCard
                 key={index}
                 id={item.id}
