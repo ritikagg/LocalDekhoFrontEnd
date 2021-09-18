@@ -6,7 +6,10 @@ const PendingRequest = ({ props }) => {
   const available_req = props;
   const { search } = useLocation();
   const searchParam = new URLSearchParams(search);
-  const request_timeslot = new Date().toLocaleString();
+  var currentData = new Date();
+  currentData.setSeconds(0, 0);
+
+  const request_timeslot = currentData.toLocaleString();
 
   const q = searchParam.get("q");
   const filtered = available_req.filter((item) => {

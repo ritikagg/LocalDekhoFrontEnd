@@ -3,8 +3,10 @@ import CompletedCard from "./atoms/CompletedCard";
 
 const CompletedRequest = ({ props }) => {
   const completed_service = props;
-  const request_timeslot = new Date().toLocaleString();
+  var currentData = new Date();
+  currentData.setSeconds(0, 0);
 
+  const request_timeslot = currentData.toLocaleString();
   return (
     <>
       {completed_service.length > 0 ? (

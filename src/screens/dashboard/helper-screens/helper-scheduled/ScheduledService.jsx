@@ -3,8 +3,10 @@ import ScheduledCard from "./atoms/ScheduledCard";
 
 const ScheduledService = ({ props }) => {
   const scheduled_service = props;
-  const request_timeslot = new Date().toLocaleString();
+  var currentData = new Date();
+  currentData.setSeconds(0, 0);
 
+  const request_timeslot = currentData.toLocaleString();
   return (
     <>
       {scheduled_service.length > 0 ? (
