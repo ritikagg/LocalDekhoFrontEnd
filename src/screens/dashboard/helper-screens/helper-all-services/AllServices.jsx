@@ -80,7 +80,21 @@ const AllServices = ({ props }) => {
           </Modal>
         </div>
       ) : (
-        <h2>No Service added yet. Please create some...</h2>
+        <>
+          <h2>No Service added yet. Please create some...</h2>
+          <FloatingActionButtons handle={setVisible} />
+          <Modal
+            // title="Modal 1000px width"
+            centered
+            visible={visible}
+            onOk={() => setVisible(false)}
+            onCancel={() => setVisible(false)}
+            width={700}
+            footer={null}
+          >
+            <AddService onClose={onClose} />
+          </Modal>
+        </>
       )}
     </>
   );

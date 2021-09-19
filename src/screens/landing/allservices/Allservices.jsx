@@ -16,6 +16,7 @@ import RequestForm from "../../requestpage/RequestForm";
 
 import { useDispatch, useSelector } from "react-redux";
 import { reqServiceActions } from "../../../store/reqService/reqService-slice";
+import AllServices from "../../../assets/JsonData/available-services.json";
 
 import { Modal, notification } from "antd";
 
@@ -60,6 +61,10 @@ const Allservices = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const visibilityHandle = (e) => {
+    const serviceName = e.currentTarget.id;
+    const selectedService = AllServices.filter(
+      (i) => i.ServiceName === serviceName
+    );
     if (!geolocation.error) {
       dispatch(
         reqServiceActions.UPDATE_DETAILS({
@@ -67,6 +72,7 @@ const Allservices = () => {
           latitude: geolocation.latitude,
           longitude: geolocation.longitude,
           requestedService: e.currentTarget.id,
+          service_id: selectedService[0].id,
         })
       );
       setVisible(true);
