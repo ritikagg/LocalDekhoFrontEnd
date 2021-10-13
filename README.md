@@ -10,7 +10,7 @@
 
 - [Description](#description)
 - [About Project](#about-project)
-- [UP AND RUNNING](#up-and-running)
+- [Up and Running](#up-and-running)
 - [Stack](#stack)
 - [Team Members](#team-member)
 
@@ -25,7 +25,7 @@ It aims to targets those areas where service providing companoes are not functio
 
 **[Click here to view PRD](https://docs.google.com/document/d/1yHb4LakPRSB_u7uAE_js7Tr7ONfeA-k-Jy4kFbtLn4k/edit)**
 
-## UP AND RUNNING
+## Up and Running
 
 Install dependencies:
 
