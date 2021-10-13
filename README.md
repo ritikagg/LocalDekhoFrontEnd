@@ -6,18 +6,26 @@
 
 **Backend:** https://localdekhobackend.herokuapp.com/
 
-## Description
+**Table of Content**
+
+- [Description](#description)
+- [About Project](#about-project)
+- [UP AND RUNNING](#up-and-running)
+- [Stack](#stack)
+- [Team Members](#team-member)
+
+# Description
 
 We are building this project as a part of our Pesto curriculum. Our aim is to implement the technologies taught to us as a part of this career accelerator program and to come up with something using for the society.
 
-### About Project
+# About Project
 
 "LocalDekho" is a service delivery platform that connects the customer with service providers.
 It aims to targets those areas where service providing companoes are not functional. Here both the parties can register themselves, connect and get the reuired task done.
 
 **[Click here to view PRD](https://docs.google.com/document/d/1yHb4LakPRSB_u7uAE_js7Tr7ONfeA-k-Jy4kFbtLn4k/edit)**
 
-## UP AND RUNNING
+# UP AND RUNNING
 
 Install dependencies:
 
@@ -69,7 +77,7 @@ or
 $ npm run build
 ```
 
-## Stack
+# Stack
 
 ### Front-End:
 
@@ -93,6 +101,6 @@ $ npm run build
 
 [Read More](https://docs.sentry.io/platforms/javascript/guides/react/)
 
-## Team Members
+## Team Member
 
 1.  [Ritik Aggarwal](https://github.com/ritikagg)
