@@ -28,7 +28,12 @@ const Otp = ({ mobile, onBack, isUser }) => {
           <EditIcon />
         </div>
       </div>
-      <Form name="basic" onFinish={handlesubmit} layout="vertical">
+      <Form
+        name="basic"
+        onFinish={handlesubmit}
+        layout="vertical"
+        initialValues={{ otp: "123456" }}
+      >
         <Form.Item
           name="otp"
           rules={[

@@ -9,6 +9,8 @@ import { getAddressLine } from "../../store/reqService/reqService-slice";
 import AllServices from "../../assets/JsonData/available-services.json";
 
 const SearchBar = () => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const ServiceDetails = useSelector((state) => state.reqService);
   const [location, setLocation] = useState("");
   const AddressRef = useRef("");
@@ -38,20 +40,27 @@ const SearchBar = () => {
   const [visible, setVisible] = useState(false);
   const visibilityHandle = () => {
     if (!geolocation.error) {
-      dispatch(
-        reqServiceActions.UPDATE_DETAILS({
-          ...ServiceDetails,
-          requestedService: selectedCategory,
-          service_id: selectedCategoryID,
-        })
-      );
-      dispatch(
-        reqServiceActions.UPDATE_LOCATION({
-          ...ServiceDetails,
-          location: location,
-        })
-      );
-      setVisible(true);
+      if (selectedCategory) {
+        dispatch(
+          reqServiceActions.UPDATE_DETAILS({
+            ...ServiceDetails,
+            requestedService: selectedCategory,
+            service_id: selectedCategoryID,
+          })
+        );
+        dispatch(
+          reqServiceActions.UPDATE_LOCATION({
+            ...ServiceDetails,
+            location: location,
+          })
+        );
+        setVisible(true);
+      } else {
+        notification.error({
+          message: "Please select a category",
+          description: "Please provide service you are looking for.",
+        });
+      }
     } else {
       notification.error({
         message: "Unable to access location",
@@ -63,9 +72,6 @@ const SearchBar = () => {
   const onClose = () => {
     setVisible(false);
   };
-
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCategoryID, setSelectedCategoryID] = useState("");
 
   const handleChange = (e) => {
     const serviceName = e.target.value;
@@ -130,11 +136,7 @@ const SearchBar = () => {
             </button>
           </div>
           <div onClick={visibilityHandle}>
-            <button
-              type="submit"
-              className="search__btn"
-              // onClick={searchButtonHandler(latlng)}
-            >
+            <button type="submit" className="search__btn">
               <div className="search__box-desktop">Search for Service</div>
 
               <div className="search__box-mobile">

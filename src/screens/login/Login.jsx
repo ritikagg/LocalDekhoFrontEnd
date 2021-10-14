@@ -37,7 +37,7 @@ const Login = () => {
     dispatch(sendOtpRequest(value.mobile));
   };
 
-  const [isUser, setIsUser] = useState(true);
+  const [isUser, setIsUser] = useState(false);
 
   const onChange = (value) => {
     setIsUser(value);
@@ -98,7 +98,7 @@ const Login = () => {
           name="basic"
           onFinish={handlesubmit}
           layout="vertical"
-          initialValues={{ mobile: initialMobile }}
+          initialValues={{ mobile: "9306871479" }}
         >
           <Form.Item
             label="Mobile Number"
