@@ -8,6 +8,20 @@ const Navbar = () => {
   const [expanded, setExpanded] = useState(false);
   const { isAuth } = useAuth();
 
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: 2000,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <nav className="navbar">
@@ -27,6 +41,7 @@ const Navbar = () => {
                   exact={true}
                   className="nav-link"
                   to="/"
+                  onClick={scrollToTop}
                 >
                   Home
                 </NavLink>
@@ -37,6 +52,7 @@ const Navbar = () => {
                   exact={true}
                   className="nav-link"
                   to="/"
+                  onClick={scrollToBottom}
                 >
                   Explore Services
                 </NavLink>
@@ -47,6 +63,7 @@ const Navbar = () => {
                   exact={true}
                   className="nav-link"
                   to="/"
+                  onClick={scrollToBottom}
                 >
                   About
                 </NavLink>
