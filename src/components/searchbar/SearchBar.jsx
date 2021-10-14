@@ -59,12 +59,14 @@ const SearchBar = () => {
         notification.error({
           message: "Please select a category",
           description: "Please provide service you are looking for.",
+          key: "category",
         });
       }
     } else {
       notification.error({
         message: "Unable to access location",
         description: "Please provide location access to serve better.",
+        key: "location",
       });
     }
   };
