@@ -80,6 +80,7 @@ const Allservices = () => {
       notification.error({
         message: "Unable to access location",
         description: "Please provide location access to serve better.",
+        key: "location",
       });
     }
   };
